@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>会員登録</title>
+    <title>ログイン</title>
     @vite('resources/css/app.css')
 </head>
 
@@ -12,22 +12,16 @@
     <x-Header />
     <main>
         <div class="w-[680px] mt-[80px] mx-auto">
-
-            <h1 class="text-center font-bold text-[36px] mb-[40px]">会員登録</h1>
-
-            <form action="/register" method="post">
+            <h1 class="text-center font-bold text-[36px] mb-[40px]">ログイン</h1>
+            <form action="/login" method="post">
                 @csrf
-                <x-form-input label="ユーザー名" name="name" />
-
                 <x-form-input label="メールアドレス" name="email" type="email" />
-
                 <x-form-input label="パスワード" name="password" type="password" />
 
-                <x-form-input label="確認用パスワード" name="password_confirmation" type="password" />
+                <button type="submit" class="w-full text-white bg-[#FF5555] py-[10px] rounded-md text-[24px] font-bold mt-[50px]">ログインする</button>
 
-                <button type="submit" class="w-full text-white bg-[#FF5555] py-[10px] rounded-md text-[24px] font-bold mt-[50px]">登録する</button>
                 <div class="mt-[20px] text-center">
-                    <a href="/login" class="text-blue-500 hover:underline">ログインはこちら</a>
+                    <a href="/register" class="text-blue-500 hover:underline">会員登録はこちら</a>
                 </div>
             </form>
         </div>
