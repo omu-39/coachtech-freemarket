@@ -8,7 +8,7 @@
         id="{{ $name }}"
         name="{{ $name }}"
         placeholder="{{ $placeholder }}"
-        class="border border-[#5F5F5F] rounded-md w-full h-[50px] px-3 text-[18px]"
+        class="border border-[#5F5F5F] rounded-md w-full h-[38px] px-3 text-[18px]"
     >
 
     @error($name)

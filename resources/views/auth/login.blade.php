@@ -11,14 +11,15 @@
 <body>
     <x-Header />
     <main>
-        <div class="w-[680px] mt-[80px] mx-auto">
-            <h1 class="text-center font-bold text-[36px] mb-[40px]">ログイン</h1>
+        <div class="w-[680px] mx-auto">
+            <x-page-heading title="ログイン" />
+
             <form action="/login" method="post">
                 @csrf
                 <x-form-input label="メールアドレス" name="email" type="email" />
                 <x-form-input label="パスワード" name="password" type="password" />
 
-                <button type="submit" class="w-full text-white bg-[#FF5555] py-[10px] rounded-md text-[24px] font-bold mt-[50px]">ログインする</button>
+                <x-form-submit-button submit="ログイン" />
 
                 <div class="mt-[20px] text-center">
                     <a href="/register" class="text-blue-500 hover:underline">会員登録はこちら</a>

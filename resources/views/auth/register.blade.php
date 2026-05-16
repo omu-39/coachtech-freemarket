@@ -11,9 +11,9 @@
 <body>
     <x-Header />
     <main>
-        <div class="w-[680px] mt-[80px] mx-auto">
+        <div class="w-[680px] mx-auto">
 
-            <h1 class="text-center font-bold text-[36px] mb-[40px]">会員登録</h1>
+            <x-page-heading title="会員登録" />
 
             <form action="/register" method="post">
                 @csrf
@@ -25,7 +25,8 @@
 
                 <x-form-input label="確認用パスワード" name="password_confirmation" type="password" />
 
-                <button type="submit" class="w-full text-white bg-[#FF5555] py-[10px] rounded-md text-[24px] font-bold mt-[50px]">登録する</button>
+                <x-form-submit-button submit="登録する" />
+                
                 <div class="mt-[20px] text-center">
                     <a href="/login" class="text-blue-500 hover:underline">ログインはこちら</a>
                 </div>
