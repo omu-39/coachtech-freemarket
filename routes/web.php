@@ -28,3 +28,7 @@ Route::get('/profile', function () {
 Route::get('/sell', function () {
     return view('sell');
 });
+
+Route::get('/item/show', function () {
+    return view('purchase.show');
+});
