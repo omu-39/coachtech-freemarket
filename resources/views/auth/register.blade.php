@@ -26,7 +26,7 @@
                 <x-form-input label="確認用パスワード" name="password_confirmation" type="password" />
 
                 <x-form-submit-button submit="登録する" />
-                
+
                 <div class="mt-[20px] text-center">
                     <a href="/login" class="text-blue-500 hover:underline">ログインはこちら</a>
                 </div>
