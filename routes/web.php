@@ -24,3 +24,7 @@ Route::get('/edit', function () {
 Route::get('/profile', function () {
     return view('profile.show');
 });
+
+Route::get('/sell', function () {
+    return view('sell');
+});
