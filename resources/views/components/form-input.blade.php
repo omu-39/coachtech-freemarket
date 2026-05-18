@@ -3,25 +3,28 @@
 <div class="mb-[30px]">
     <label for="{{ $name }}" class="text-[24px] font-bold">{{ $label }}</label>
 
-    <div {{ $attributes->merge(['class' => 'flex border border-[#5F5F5F] rounded-md w-full h-[38px] px-3 bg-white']) }}>
+    <div class="flex {{ $type === 'textarea' ? 'items-start' : 'items-center' }} border-2 border-[#5F5F5F] rounded-md p-2">
 
         @if($isPrice)
-        <span class="text-[18px] font-bold text-[#5F5F5F] mr-2 select-none">¥</span>
+        <span class="text-[24px] font-bold mr-2 select-none">¥</span>
         @endif
 
         @if($type === 'textarea')
+        @php
+            $hasResize = str_contains($attributes->get('class', ''), 'resize');
+        @endphp
         <textarea
             id="{{ $name }}"
             name="{{ $name }}"
             placeholder="{{ $placeholder }}"
-            class="w-full h-full text-[18px] bg-transparent focus:outline-none py-1.5 resize-none"></textarea>
+            {{ $attributes->merge(['class' => 'w-full text-[18px] focus:outline-none py-1.5' . ($hasResize ? '' : ' resize-none')]) }}></textarea>
         @else
         <input
             type="{{ $type }}"
             id="{{ $name }}"
             name="{{ $name }}"
             placeholder="{{ $placeholder }}"
-            class="w-full h-full text-[18px] bg-transparent focus:outline-none p-0">
+            {{ $attributes->merge(['class' => 'w-full h-[30px] text-[18px] focus:outline-none']) }}>
         @endif
     </div>
 
