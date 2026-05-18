@@ -33,7 +33,7 @@
                             class="w-full h-[30px] border border-gray-500 rounded px-1 text-[16px] bg-white focus:outline-none ml-20">
                             <option value="">選択してください</option>
                             <option value="convenience">コンビニ払い</option>
-                            <option value="card">クレジットカード</option>
+                            <option value="card">カード払い</option>
                         </select>
                     </div>
                 </div>
