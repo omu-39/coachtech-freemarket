@@ -36,33 +36,54 @@
                 </div>
 
                 <a href=""
-                    class="w-full text-white bg-[#FF5555] py-[8px] rounded-md text-[24px] font-bold block text-center my-[22px]">
+                    class="w-full text-white bg-[#FF5555] py-[8px] rounded-md text-[24px] font-bold block text-center mt-[22px] mb-[50px]">
                     購入手続きへ
                 </a>
 
-                <section>
+                <section class="mb-[50px]">
                     <h2 class="text-[36px] font-bold mb-[20px]">商品説明</h2>
-                    <p>カラー：グレー</p>
-                    <p>新品</p>
-                    <p>商品の状態は良好です。傷もありません。</p>
-                    <p>購入後、即発送いたします。</p>
-                </section>
-
-                <section>
-                    <h2 class="text-[36px] font-bold mb-[20px]">商品の情報</h2>
-                    <p>カテゴリー</p>
-                    <p>商品の状態</p>
-                </section>
-
-                <form action="">
-                    <h3 class="text-[24px] font-bold mb-[10px] text-[#5F5F5F]">コメント</h3>
-                    <div class="flex">
-                        <div class="w-[70px] bg-[#D9D9D9] rounded-full"></div>
-                        <p>admin</p>
+                    {{-- 下記はコントローラー作成時に有効にして仮置きしている文章は削除する --}}
+                    {{-- <div class="text-[18px] text-gray-700 font-medium leading-relaxed">
+                        {!! nl2br(e($product->description)) !!}
+                    </div> --}}
+                    <div class="text-[24px]">
+                        <p>カラー：グレー</p>
+                        <br>
+                        <p>新品</p>
+                        <p>商品の状態は良好です。傷もありません</p>
+                        <br>
+                        <p>購入後、即発送いたします。</p>
                     </div>
-                    <p class="bg-[#E5E5E5]">こちらにコメントが入ります。</p>
+                </section>
 
-                    <x-form-input type="textarea" label="商品へのコメント" name="comment" class="h-[250px]"/>
+                <section class="mb-[50px]">
+                    <h2 class="text-[36px] font-bold mb-[20px]">商品の情報</h2>
+                    <div class="grid grid-cols-[150px_1fr] gap-y-4 items-center">
+
+                        <span class="text-[24px] font-bold text-gray-950">カテゴリー</span>
+
+                        <div class="flex items-center gap-2">
+                            <span class="bg-[#D9D9D9] text-[20px] text-gray-850 px-6 py-1 rounded-full">洋服</span>
+                            <span class="bg-[#D9D9D9] text-[20px] text-gray-850 px-6 py-1 rounded-full">メンズ</span>
+                        </div>
+
+                        <span class="text-[24px] font-bold text-gray-950">商品の状態</span>
+                        <span class="text-[20px] text-gray-950 ml-[20px]">良好</span>
+
+                    </div>
+                </section>
+
+                <form action="" method="post">
+                    <h3 class="text-[36px] font-bold mb-[30px] text-[#5F5F5F]">コメント</h3>
+                    <div class="flex items-center mb-[20px]">
+                        <div class="w-[70px] aspect-square bg-[#D9D9D9] rounded-full"></div>
+                        <p class="ml-[30px] text-[30px] font-bold">admin</p>
+                    </div>
+                    <p class="bg-[#E5E5E5] items-center p-[15px] text-[20px] rounded-lg mb-[30px]">こちらにコメントが入ります。</p>
+
+                    <x-form-input type="textarea" label="商品へのコメント" name="comment" class="h-[250px] resize" />
+
+                    <x-form-submit-button submit="コメントを送信する" />
                 </form>
             </div>
         </div>
