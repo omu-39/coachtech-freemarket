@@ -32,3 +32,7 @@ Route::get('/sell', function () {
 Route::get('/item/show', function () {
     return view('purchase.show');
 });
+
+Route::get('/purchase/buy', function () {
+    return view('purchase.buy');
+});
