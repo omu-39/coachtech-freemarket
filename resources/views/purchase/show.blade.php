@@ -83,7 +83,7 @@
 
                     <x-form-input type="textarea" label="商品へのコメント" name="comment" class="h-[250px] resize" />
 
-                    <x-form-submit-button submit="コメントを送信する" />
+                    <x-form-submit-button submit="コメントを送信する" class="mt-2" />
                 </form>
             </div>
         </div>

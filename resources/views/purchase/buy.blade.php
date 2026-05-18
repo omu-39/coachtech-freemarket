@@ -64,7 +64,7 @@
                     </div>
                 </div>
 
-                <x-form-submit-button submit="購入する"></x-form-submit-button>
+                <x-form-submit-button submit="購入する" class="mt-2" />
 
             </div>
 
