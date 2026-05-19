@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\Product;
+use App\Models\Like;
+use App\Models\Comment;
 
 class User extends Authenticatable
 {
@@ -21,6 +24,10 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'postal_code',
+        'address',
+        'build',
+        'profile_image',
     ];
 
     /**
@@ -30,7 +37,6 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'password',
-        'remember_token',
     ];
 
     /**
@@ -42,4 +48,19 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function product()
+    {
+        return $this->hasMany(Product::class);
+    }
+
+    public function like()
+    {
+        return $this->hasMany(Like::class);
+    }
+
+    public function comment()
+    {
+        return $this->hasMany(Comment::class);
+    }
 }
