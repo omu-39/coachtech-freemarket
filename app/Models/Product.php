@@ -20,13 +20,6 @@ class Product extends Model
         'image',
     ];
 
-    const STATUS = [
-        1 => "良好",
-        2 => "目立った傷や汚れなし",
-        3 => "やや傷や汚れあり",
-        4 => "状態が悪い",
-    ];
-
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -54,6 +47,11 @@ class Product extends Model
 
     public function getStatusLabelAttribute()
     {
-        return self::STATUS[$this->status];
+        return match ($this->status) {
+            1 => '目立った傷や汚れなし',
+            2 => 'やや傷や汚れあり',
+            3 => '状態が悪い',
+            default => '良好',
+        };
     }
 }
