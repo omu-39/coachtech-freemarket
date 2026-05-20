@@ -15,7 +15,7 @@
 
             <x-page-heading title="会員登録" />
 
-            <form action="/register" method="post">
+            <form action="/register" method="post" novalidate>
                 @csrf
                 <x-form-input label="ユーザー名" name="name" />
 

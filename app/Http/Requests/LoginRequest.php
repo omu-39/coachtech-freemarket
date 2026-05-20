@@ -3,6 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Validator;
+use Illuminate\Support\Facades\Hash;
+use App\Models\User;
 
 class LoginRequest extends FormRequest
 {
@@ -22,8 +25,28 @@ class LoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => 'required|string|email',
-            'password' => 'required|string|',
+            'email' => 'required|email',
+            'password' => 'required',
         ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'email.required' => 'メールアドレスを入力してください',
+            'email.email' => 'メールアドレスはメール形式で入力してください',
+            'password.required' => 'パスワードを入力してください',
+        ];
+    }
+
+    public function withValidator(Validator $validator)
+    {
+        $validator->after(function (Validator $validator) {
+            $user = User::where('email', $this->email)->first();
+
+            if (!$user || !Hash::check($this->password, $user->password)) {
+                $validator->errors()->add('password', 'ログイン情報が登録されていません');
+            }
+        });
     }
 }

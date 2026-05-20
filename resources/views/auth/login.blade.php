@@ -14,7 +14,7 @@
         <div class="w-[680px] mx-auto">
             <x-page-heading title="ログイン" />
 
-            <form action="/login" method="post">
+            <form action="/login" method="post" novalidate>
                 @csrf
                 <x-form-input label="メールアドレス" name="email" type="email" />
                 <x-form-input label="パスワード" name="password" type="password" />

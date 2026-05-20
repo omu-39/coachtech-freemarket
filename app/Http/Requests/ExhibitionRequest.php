@@ -22,10 +22,10 @@ class ExhibitionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string',
-            'description' => 'required|string|max:255',
+            'name' => 'required',
+            'description' => 'required|max:255',
             'image' => 'required|mimes:jpeg,png',
-            'category' => 'required|string',
+            'category' => 'required',
             'status' => 'required|in:0,1,2,3',
             'price' => 'required|integer|min:0',
         ];

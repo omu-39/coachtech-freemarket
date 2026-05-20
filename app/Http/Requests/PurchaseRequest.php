@@ -23,7 +23,7 @@ class PurchaseRequest extends FormRequest
     {
         return [
             'payment_method' => 'required',
-            'shipping_address' => 'required|string',
+            'shipping_address' => 'required',
         ];
     }
 }
