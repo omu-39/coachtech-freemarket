@@ -4,17 +4,17 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Models\Product;
+use App\Models\Item;
 use App\Models\Category;
 
-class ProductTableSeeder extends Seeder
+class ItemTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        $products = [
+        $items = [
             [
                 'user_id' => 1,
                 'name' => '腕時計',
@@ -68,8 +68,7 @@ class ProductTableSeeder extends Seeder
                 'description' => '高音質のレコーディングマイク',
                 'image' =>'https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/Music+Mic+4632231.jpg',
                 'status' => '2',
-            ]
-            ,
+            ],
             [
                 'user_id' => 1,
                 'name' => 'ショルダーバッグ',
@@ -105,11 +104,11 @@ class ProductTableSeeder extends Seeder
                 'description' => '便利なメイクアップセット',
                 'image' => 'https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/%E5%A4%96%E5%87%BA%E3%83%A1%E3%82%A4%E3%82%AF%E3%82%A2%E3%83%83%E3%83%95%E3%82%9A%E3%82%BB%E3%83%83%E3%83%88.jpg',
                 'status' => '1',
-            ]
+            ],
         ];
 
-        foreach ($products as $product) {
-            Product::create($product);
+        foreach ($items as $item) {
+            Item::create($item);
         }
     }
 }

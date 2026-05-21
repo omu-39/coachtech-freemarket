@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-use App\Models\Product;
+use App\Models\Item;
 use App\Models\Like;
 use App\Models\Comment;
 
@@ -49,14 +49,14 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function product()
+    public function Item()
     {
-        return $this->hasMany(Product::class);
+        return $this->hasMany(Item::class);
     }
 
-    public function like()
+    public function likedItems()
     {
-        return $this->hasMany(Like::class);
+        return $this->belongsToMany(Item::class);
     }
 
     public function comment()
