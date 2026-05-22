@@ -31,6 +31,6 @@
     </div>
 
     @error($name)
-    <span class="text-red-500 text-xs mt-1 block">{{ $message }}</span>
+    <span class="text-red-500 text-[18px] mt-2 block">{{ $message }}</span>
     @enderror
 </div>

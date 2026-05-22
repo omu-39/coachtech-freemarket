@@ -6,52 +6,56 @@ use App\Http\Requests\ExhibitionRequest;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\Item;
+use Illuminate\Support\Facades\Auth;
+
 
 class ItemController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * 未ログイン時にmylistへアクセスされた場合は空コレクションを返す
      */
     public function index(Request $request)
     {
-        if($request->tab === 'mylist') {
+        if ($request->tab === 'mylist') {
 
-            $items = auth()->user()
-            ->likedItems()->get();
+            $items = Auth::check()
+                ? auth()->user()->likedItems
+                : collect();
+        } else {
 
-        } elseif (!auth()->user()) {
-
-            $items = [];
-
+            $items = Item::all();
         }
 
-        return view('item.index', compact('items'));
-
+        return view('item.index', compact('items', 'request'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create(ExhibitionRequest $request)
+    public function create()
     {
+        $categories = Category::all();
 
-        Item::create();
+        return view('item.sell', compact('categories'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function store(ExhibitionRequest $request)
     {
-        //
+        $data = $request->validated();
+
+        $path = $request->file('image')->store('images', 'public');
+
+        $data['image'] = $path;
+        $data['user_id'] = Auth::id();
+
+        $item = Item::create($data);
+
+        return redirect()->route('item.index');
     }
 
-    /**
-     * Display the specified resource.
-     */
+
     public function show(string $id)
     {
-        //
+        $item = Item::find($id);
+
+        return view('item.show', compact('item'));
     }
 
     /**

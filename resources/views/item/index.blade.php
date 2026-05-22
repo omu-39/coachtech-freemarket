@@ -11,8 +11,13 @@
     <x-Header />
     <main>
         <nav class="pl-[300px] pb-2 flex space-x-8 border-b-2 border-[#5F5F5F] mt-11">
-                <a href="/mypage?page=sell" class="text-red-500 font-bold text-lg">おすすめ</a>
+            @if ($request->tab === 'mylist')
+                <a href="/" class="font-bold text-lg">おすすめ</a>
                 <a href="{{ route('item.index', ['tab' => 'mylist']) }}" class="text-red-500 font-bold text-lg">マイリスト</a>
+            @else
+                <a href="/" class="text-red-500 font-bold text-lg">おすすめ</a>
+                <a href="{{ route('item.index', ['tab' => 'mylist']) }}" class="font-bold text-lg">マイリスト</a>
+            @endif
         </nav>
 
         <div class="w-10/12 m-auto py-[30px]">

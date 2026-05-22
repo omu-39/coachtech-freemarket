@@ -13,7 +13,7 @@ class LoginController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(route('admin.index'));
+        return redirect()->intended(route('item.index'));
     }
 }
 
