@@ -29,8 +29,25 @@
                 </p>
                 <div class="flex ml-[42px] mt-[28px]">
                     <div class="w-[40px] text-center">
-                        <img src="/images/ハートロゴ_デフォルト.png" alt="イイネ" class="w-full">
-                        <span class="text-[18px]">3</span>
+
+                        @if ($item->isLiked())
+                            <form action="{{ route('like.destroy', ['item_id' => $item->id]) }}" method="post">
+                                @csrf
+                                <button>
+                                    <img src="/images/ハートロゴ_ピンク.png" alt="イイネ" class="w-full">
+                                </button>
+                            </form>
+                            <span class="text-[18px]">{{ $item->likes->count() }}</span>
+                            @else
+                                <form action="{{ route('like.store', ['item_id' => $item->id]) }}" method="post">
+                                    @csrf
+                                    <button>
+                                        <img src="/images/ハートロゴ_デフォルト.png" alt="イイネ" class="w-full">
+                                    </button>
+                                </form>
+                            <span class="text-[18px]">{{ $item->likes->count() }}</span>
+                        @endif
+
                     </div>
                     <div class="ml-[62px] w-[38px] text-center">
                         <img src="/images/ふきだしロゴ.png" alt="コメント" class="w-full">
@@ -60,7 +77,7 @@
 
                         <div class="flex items-center gap-2">
                             @foreach ($categories as $category)
-                                <span class="bg-[#D9D9D9] text-[20px] text-gray-850 px-6 py-1 rounded-full">{{$category->name}}</span>
+                            <span class="bg-[#D9D9D9] text-[20px] text-gray-850 px-6 py-1 rounded-full">{{$category->name}}</span>
                             @endforeach
                         </div>
 
@@ -76,9 +93,9 @@
                     <h3 class="text-[36px] font-bold mb-[30px] text-[#5F5F5F]">コメント</h3>
                     <div class="flex items-center mb-[20px]">
                         <div class="w-[70px] aspect-square bg-[#D9D9D9] rounded-full"></div>
-                        <p class="ml-[30px] text-[30px] font-bold">admin</p>
+                        <p class="ml-[30px] text-[30px] font-bold">{{ $item->user->name }}</p>
                     </div>
-                    <p class="bg-[#E5E5E5] items-center p-[15px] text-[20px] rounded-lg mb-[30px]">こちらにコメントが入ります。</p>
+                    <p class="bg-[#E5E5E5] items-center p-[15px] text-[20px] rounded-lg mb-[30px]">{{ $item->comment }}</p>
 
                     <x-form-input type="textarea" label="商品へのコメント" name="comment" class="h-[250px] resize" />
 

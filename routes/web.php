@@ -4,6 +4,7 @@ use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\LikeController;
 
 
 /*
@@ -27,6 +28,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/sell', [ItemController::class, 'store'])->name('item.store');
     Route::post('/item/{item_id}', [CommentController::class, 'store'])->name('comment.store');
     Route::get('/mypage', function () {return view('profile.index');});
+    Route::post('/item/{item_id}/like', [LikeController::class, 'store'])->name('like.store');
+    Route::post('/item/{item_id}/like/destroy', [LikeController::class, 'destroy'])->name('like.destroy');
 
 });
 

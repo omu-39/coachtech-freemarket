@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Item extends Model
 {
@@ -32,9 +33,9 @@ class Item extends Model
         return $this->belongsToMany(Category::class, 'category_item');
     }
 
-    public function likedUsers()
+    public function likes()
     {
-        return $this->belongsToMany(User::class);
+        return $this->belongsToMany(User::class, 'likes');
     }
 
     public function comments()
@@ -55,5 +56,12 @@ class Item extends Model
             4 => '状態が悪い',
             default => '良好',
         };
+    }
+
+    public function isLiked()
+    {
+        return $this->likes()
+            ->where('user_id', Auth::id())
+            ->exists();
     }
 }
