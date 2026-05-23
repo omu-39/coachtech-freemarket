@@ -40,12 +40,17 @@ class ItemController extends Controller
     {
         $data = $request->validated();
 
+        $categories = $data['categories'];
+        unset($data['categories']);
+
         $path = $request->file('image')->store('images', 'public');
 
         $data['image'] = $path;
         $data['user_id'] = Auth::id();
 
         $item = Item::create($data);
+
+        $item->categories()->attach($categories);
 
         return redirect()->route('item.index');
     }
@@ -54,31 +59,9 @@ class ItemController extends Controller
     public function show(string $id)
     {
         $item = Item::find($id);
+        $categories = $item->categories;
 
-        return view('item.show', compact('item'));
+        return view('item.show', compact('item', 'categories'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
 }

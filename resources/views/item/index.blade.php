@@ -24,7 +24,7 @@
             <div class="grid grid-cols-4 gap-6">
 
                 @foreach ($items as $item)
-                    <x-product-card :item="$item" />
+                    <x-item-card :item="$item" />
                 @endforeach
 
             </div>

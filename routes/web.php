@@ -3,6 +3,8 @@
 use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\CommentController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -23,6 +25,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/sell', [ItemController::class, 'create'])->name('item.create');
     Route::post('/sell', [ItemController::class, 'store'])->name('item.store');
+    Route::post('/item/{item_id}', [CommentController::class, 'store'])->name('comment.store');
+    Route::get('/mypage', function () {return view('profile.index');});
 
 });
 
@@ -33,8 +37,8 @@ Route::get('/edit', function () {
     return view('profile.edit');
 });
 
-Route::get('/profile', function () {
-    return view('profile.show');
+Route::get('/mypage', function () {
+    return view('profile.index');
 });
 
 Route::get('/item/show', function () {

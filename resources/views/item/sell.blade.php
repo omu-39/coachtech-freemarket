@@ -51,7 +51,7 @@
                         <div class="flex flex-wrap gap-4">
                             @foreach ($categories as $category)
                             <label class="cursor-pointer">
-                                <input type="checkbox" name="category" value="{{ $category->id }}" class="hidden peer">
+                                <input type="checkbox" name="categories[]" value="{{ $category->id }}" class="hidden peer">
                                 <span class="inline-block px-5 border-2 border-[#FF5555] text-[#FF5555]
                                         rounded-full text-lg font-medium transition duration-200
                                         peer-checked:bg-[#FF5555]
@@ -63,7 +63,7 @@
                             @endforeach
                         </div>
 
-                        @error('category')
+                        @error('categories')
                         <span class="text-red-500 text-[18px] mt-2 block">
                             {{ $message }}
                         </span>
@@ -73,10 +73,10 @@
                     <label for="status" class="text-[24px] font-bold">商品の状態</label>
                     <select name="status" id="status" value="{{ old('status') }}" class="cursor-pointer block w-full font-bold text-[#5F5F5F] border-2 border-[#5F5F5F] rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-[#B1B1B1] focus:bg-[#636769] focus:bg-b-[#B1B1B1] focus:text-white">
                         <option value="">選択してください</option>
-                        <option value="1">良好</option>
-                        <option value="2">目立った傷や汚れなし</option>
-                        <option value="3">やや傷や汚れあり</option>
-                        <option value="4">状態が悪い</option>
+                        <option value="0">良好</option>
+                        <option value="1">目立った傷や汚れなし</option>
+                        <option value="2">やや傷や汚れあり</option>
+                        <option value="3">状態が悪い</option>
                     </select>
 
                     @error('status')

@@ -27,8 +27,8 @@
         <div class="w-10/12 m-auto py-[30px]">
             <div class="grid grid-cols-4 gap-6">
 
-                @foreach ($products as $product)
-                <x-product-card :product="$product" />
+                @foreach ($items as $item)
+                <x-item-card :product="$item" />
                 @endforeach
 
             </div>
