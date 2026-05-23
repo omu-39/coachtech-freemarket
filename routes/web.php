@@ -2,6 +2,10 @@
 
 use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ItemController;
+use App\Http\Controllers\CommentController;
+use App\Http\Controllers\LikeController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -14,20 +18,30 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', [ItemController::class, 'index'])->name('item.index');
+
+Route::post('/login', [LoginController::class, 'login'])->name('login');
+
+Route::middleware('auth')->group(function () {
+
+    Route::get('/sell', [ItemController::class, 'create'])->name('item.create');
+    Route::post('/sell', [ItemController::class, 'store'])->name('item.store');
+    Route::post('/item/{item_id}', [CommentController::class, 'store'])->name('comment.store');
+    Route::get('/mypage', function () {return view('profile.index');});
+    Route::post('/item/{item_id}/like', [LikeController::class, 'store'])->name('like.store');
+    Route::post('/item/{item_id}/like/destroy', [LikeController::class, 'destroy'])->name('like.destroy');
+
 });
 
+Route::get('/item/{id}', [ItemController::class, 'show'])->name('item.show');
+
+// 見た目確認用ルート ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 Route::get('/edit', function () {
     return view('profile.edit');
 });
 
-Route::get('/profile', function () {
-    return view('profile.show');
-});
-
-Route::get('/sell', function () {
-    return view('sell');
+Route::get('/mypage', function () {
+    return view('profile.index');
 });
 
 Route::get('/item/show', function () {
@@ -41,5 +55,3 @@ Route::get('/purchase/buy', function () {
 Route::get('/purchase/address', function () {
     return view('purchase.address');
 });
-
-Route::post('/login', [LoginController::class, 'login'])->name('login');

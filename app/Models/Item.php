@@ -4,10 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
-class Product extends Model
+class Item extends Model
 {
     use HasFactory;
+
+    protected $table = 'items';
 
     protected $fillable = [
         'user_id',
@@ -27,12 +30,12 @@ class Product extends Model
 
     public function categories()
     {
-        return $this->belongsToMany(Category::class, 'category_product');
+        return $this->belongsToMany(Category::class, 'category_item');
     }
 
     public function likes()
     {
-        return $this->hasMany(Like::class);
+        return $this->belongsToMany(User::class, 'likes');
     }
 
     public function comments()
@@ -48,10 +51,17 @@ class Product extends Model
     public function getStatusLabelAttribute()
     {
         return match ($this->status) {
-            1 => '目立った傷や汚れなし',
-            2 => 'やや傷や汚れあり',
-            3 => '状態が悪い',
+            2 => '目立った傷や汚れなし',
+            3 => 'やや傷や汚れあり',
+            4 => '状態が悪い',
             default => '良好',
         };
+    }
+
+    public function isLiked()
+    {
+        return $this->likes()
+            ->where('user_id', Auth::id())
+            ->exists();
     }
 }

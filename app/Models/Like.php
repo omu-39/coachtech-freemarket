@@ -10,8 +10,8 @@ class Like extends Model
     use HasFactory;
 
     protected $fillable = [
+        'item_id',
         'user_id',
-        'product_id',
     ];
 
     public function user()
@@ -19,8 +19,8 @@ class Like extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function product()
+    public function item()
     {
-        return $this->belongsTo(Product::class);
+        return $this->belongsTo(Item::class);
     }
 }
