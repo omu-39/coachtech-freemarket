@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\LikeController;
+use App\Http\Controllers\ProfileController;
 
 
 /*
@@ -19,7 +20,6 @@ use App\Http\Controllers\LikeController;
 */
 
 Route::get('/', [ItemController::class, 'index'])->name('item.index');
-
 Route::post('/login', [LoginController::class, 'login'])->name('login');
 
 Route::middleware('auth')->group(function () {
@@ -27,10 +27,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/sell', [ItemController::class, 'create'])->name('item.create');
     Route::post('/sell', [ItemController::class, 'store'])->name('item.store');
     Route::post('/item/{item_id}', [CommentController::class, 'store'])->name('comment.store');
-    Route::get('/mypage', function () {return view('profile.index');});
     Route::post('/item/{item_id}/like', [LikeController::class, 'store'])->name('like.store');
     Route::post('/item/{item_id}/like/destroy', [LikeController::class, 'destroy'])->name('like.destroy');
-
+    Route::get('/mypage', [ProfileController::class, 'index'])->name('profile.index');
+    Route::get('/mypage/profile', [ProfileController::class, 'edit'])->name('profile.edit');
 });
 
 Route::get('/item/{id}', [ItemController::class, 'show'])->name('item.show');
@@ -38,10 +38,6 @@ Route::get('/item/{id}', [ItemController::class, 'show'])->name('item.show');
 // 見た目確認用ルート ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 Route::get('/edit', function () {
     return view('profile.edit');
-});
-
-Route::get('/mypage', function () {
-    return view('profile.index');
 });
 
 Route::get('/item/show', function () {

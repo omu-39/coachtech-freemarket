@@ -14,7 +14,7 @@
         <div class="w-[900px] m-auto my-[80px] flex items-center justify-between">
             <div class="w-[120px] h-[120px] rounded-full bg-gray-300"></div>
 
-            <h2 class="text-2xl font-bold ml-[30px] mr-[300px]">ユーザー名</h2>
+            <h2 class="text-2xl font-bold ml-[30px] mr-[300px]">{{ $user->name }}</h2>
 
             <a href="/edit" class="cursor-pointer border-2 border-[#FF5555] text-[#FF5555] px-8 py-1 rounded-xl hover:bg-gray-50 text-lg font-medium ml-[30px]">プロフィールを編集</a>
         </div>
@@ -28,7 +28,7 @@
             <div class="grid grid-cols-4 gap-6">
 
                 @foreach ($items as $item)
-                <x-item-card :product="$item" />
+                    <x-item-card :item="$item" />
                 @endforeach
 
             </div>
