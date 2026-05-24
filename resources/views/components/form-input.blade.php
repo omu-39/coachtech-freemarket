@@ -1,4 +1,4 @@
-@props(['label', 'name', 'type' => 'text', 'placeholder' => '', 'isPrice' => false])
+@props(['label', 'name', 'type' => 'text', 'placeholder' => '', 'isPrice' => false, 'value' => '{{ old($name) }}'])
 
 <div class="mb-[30px]">
     <label for="{{ $name }}" class="text-[24px] font-bold">{{ $label }}</label>
@@ -17,7 +17,7 @@
             id="{{ $name }}"
             name="{{ $name }}"
             placeholder="{{ $placeholder }}"
-            value="{{ old($name) }}"
+            value="{{ $value }}"
             {{ $attributes->merge(['class' => 'w-full text-[18px] focus:outline-none py-1.5' . ($hasResize ? '' : ' resize-none')]) }}></textarea>
         @else
         <input
@@ -25,7 +25,7 @@
             id="{{ $name }}"
             name="{{ $name }}"
             placeholder="{{ $placeholder }}"
-            value="{{ old($name) }}"
+            value="{{ $value }}"
             {{ $attributes->merge(['class' => 'w-full h-[30px] text-[18px] focus:outline-none']) }}>
         @endif
     </div>

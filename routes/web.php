@@ -30,15 +30,13 @@ Route::middleware('auth')->group(function () {
     Route::post('/item/{item_id}/like', [LikeController::class, 'store'])->name('like.store');
     Route::post('/item/{item_id}/like/destroy', [LikeController::class, 'destroy'])->name('like.destroy');
     Route::get('/mypage', [ProfileController::class, 'index'])->name('profile.index');
-    Route::get('/mypage/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::get('/mypage/profile', [ProfileController::class, 'show'])->name('profile.show');
+    Route::patch('/mypage/profile', [ProfileController::class, 'update'])->name('profile.update');
 });
 
 Route::get('/item/{id}', [ItemController::class, 'show'])->name('item.show');
 
 // 見た目確認用ルート ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
-Route::get('/edit', function () {
-    return view('profile.edit');
-});
 
 Route::get('/item/show', function () {
     return view('purchase.show');

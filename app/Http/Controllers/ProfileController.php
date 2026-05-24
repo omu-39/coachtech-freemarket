@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Item;
+use App\Http\Requests\ProfileRequest;
 
 class ProfileController extends Controller
 {
@@ -32,9 +33,32 @@ class ProfileController extends Controller
         return view('profile.index', compact('user', 'items', 'request'));
     }
 
-    public function edit(string $id)
+    public function show()
     {
-        //
+        $user = Auth::user();
+
+        return view('profile.edit', compact('user'));
+
+    }
+
+    public function update(ProfileRequest $request)
+    {
+        $user = Auth::user();
+
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('images', 'public');
+
+            $user->profile_image = $path;
+        }
+        $user->name = $request->name;
+        $user->postal_code = $request->postal_code;
+        $user->address = $request->address;
+        $user->build = $request->build;
+
+        $user->save();
+
+        return redirect()->route('profile.index');
+
     }
 
 }

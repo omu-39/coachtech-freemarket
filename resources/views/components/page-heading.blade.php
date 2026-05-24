@@ -1,3 +1,3 @@
 @props(['title'])
 
-<h1 class="text-center font-bold text-[36px] mb-[40px] mt-[50px]">{{ $title }}</h1>
+<h1 class="text-center font-bold text-[32px] mb-[20px] mt-[35px]">{{ $title }}</h1>
