@@ -20,8 +20,13 @@
         </div>
 
         <nav class="pl-[300px] pb-2 flex space-x-8 border-b-2 border-[#5F5F5F]">
-            <a href="/mypage?page=sell" class="text-red-500 font-bold text-lg">出品した商品</a>
-            <a href="/mypage?page=buy" class="text-red-500 font-bold text-lg">購入した商品</a>
+            @if ($request->page === 'buy')
+                <a href="{{ route('profile.index', ['page' => 'sell']) }}" class="font-bold text-lg">出品した商品</a>
+                <a href="{{ route('profile.index', ['page' => 'buy']) }}" class="text-red-500 font-bold text-lg">購入した商品</a>
+            @else
+                <a href="{{ route('profile.index', ['page' => 'sell']) }}" class="text-red-500 font-bold text-lg">出品した商品</a>
+                <a href="{{ route('profile.index', ['page' => 'buy']) }}" class="font-bold text-lg">購入した商品</a>
+            @endif
         </nav>
 
         <div class="w-10/12 m-auto py-[30px]">

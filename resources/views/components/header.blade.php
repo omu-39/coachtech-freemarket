@@ -14,7 +14,7 @@
     </form>
 
     <nav class="w-1/5">
-        <ul class="flex justify-end space-x-6 text-[20px] font-medium">
+        <ul class="flex justify-end space-x-6 text-[20px]">
             <li>
 
                 @if (Auth::check())
