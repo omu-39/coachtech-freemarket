@@ -19,12 +19,18 @@ class ItemController extends Controller
         if ($request->tab === 'mylist') {
 
             $items = Auth::check()
-                ? auth()->user()->likedItems
-                : collect();
+                ? auth()->user()->likes()
+                : Item::query()->whereRaw('0 = 1');
         } else {
 
-            $items = Item::all();
+            $items = Item::query();
         }
+
+        if ($request->keyword) {
+            $items->where('name', 'like', '%' . $request->keyword . '%');
+        }
+
+        $items = $items->get();
 
         return view('item.index', compact('items', 'request'));
     }
@@ -60,8 +66,9 @@ class ItemController extends Controller
     {
         $item = Item::find($id);
         $categories = $item->categories;
+        $user = Auth::user();
 
-        return view('item.show', compact('item', 'categories'));
+        return view('item.show', compact('item', 'categories', 'user'));
     }
 
 }

@@ -49,7 +49,7 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function Item()
+    public function items()
     {
         return $this->hasMany(Item::class);
     }
@@ -59,7 +59,7 @@ class User extends Authenticatable
         return $this->belongsToMany(Item::class, 'likes');
     }
 
-    public function comment()
+    public function comments()
     {
         return $this->hasMany(Comment::class);
     }
