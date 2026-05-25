@@ -66,8 +66,9 @@ class ItemController extends Controller
     {
         $item = Item::find($id);
         $categories = $item->categories;
+        $user = Auth::user();
 
-        return view('item.show', compact('item', 'categories'));
+        return view('item.show', compact('item', 'categories', 'user'));
     }
 
 }

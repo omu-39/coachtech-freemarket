@@ -41,7 +41,7 @@ class ProfileController extends Controller
 
     }
 
-    public function update(ProfileRequest $request)
+    public function edit(ProfileRequest $request)
     {
         $user = Auth::user();
 

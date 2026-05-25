@@ -77,7 +77,7 @@
 
                         <div class="flex items-center gap-2">
                             @foreach ($categories as $category)
-                            <span class="bg-[#D9D9D9] text-[20px] text-gray-850 px-6 py-1 rounded-full">{{$category->name}}</span>
+                                <span class="bg-[#D9D9D9] text-[20px] text-gray-850 px-6 py-1 rounded-full">{{$category->name}}</span>
                             @endforeach
                         </div>
 
@@ -90,12 +90,16 @@
                 <form action="" method="post">
                     @csrf
 
-                    <h3 class="text-[36px] font-bold mb-[30px] text-[#5F5F5F]">コメント</h3>
-                    <div class="flex items-center mb-[20px]">
-                        <div class="w-[70px] aspect-square bg-[#D9D9D9] rounded-full"></div>
-                        <p class="ml-[30px] text-[30px] font-bold">{{ $item->user->name }}</p>
-                    </div>
-                    <p class="bg-[#E5E5E5] items-center p-[15px] text-[20px] rounded-lg mb-[30px]">{{ $item->comment }}</p>
+                    <h3 class="text-[36px] font-bold mb-[30px] text-[#5F5F5F]">コメント({{ $item->comments->count() }})</h3>
+                        <div class="flex items-center mb-[20px]">
+                            @if ($user->profile_image)
+                                <img src="{{ asset('storage/' . $user->profile_image) }}" class="w-[120px] h-[120px] rounded-full object-cover">
+                            @else
+                                <div class="w-[70px] h-[70px] rounded-full bg-gray-300"></div>
+                            @endif
+                            <p class="ml-[30px] text-[30px] font-bold">{{ $user->name }}</p>
+                        </div>
+                        <p class="bg-[#E5E5E5] items-center p-[15px] text-[20px] rounded-lg mb-[30px]">{{ optional($item->comments->last())->comment }}</p>
 
                     <x-form-input type="textarea" label="商品へのコメント" name="comment" class="h-[250px] resize" />
 
