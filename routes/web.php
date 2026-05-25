@@ -32,6 +32,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/mypage', [ProfileController::class, 'index'])->name('profile.index');
     Route::get('/mypage/profile', [ProfileController::class, 'show'])->name('profile.show');
     Route::patch('/mypage/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::get('/purchase/{item_id}', [PurchaseController::class, 'index'])->name('purchase.index');
+    Route::post('/purchase/{item_id}', [PurchaseController::class, 'store'])->name('purchase.store');
+    Route::get('/purchase/address/{item_id}', [PurchaseController::class, 'address'])->name('purchase.address');
+
 });
 
 Route::get('/item/{id}', [ItemController::class, 'show'])->name('item.show');
