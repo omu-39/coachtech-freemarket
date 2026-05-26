@@ -21,6 +21,7 @@ class Item extends Model
         'brand',
         'price',
         'image',
+        'shipping_address'
     ];
 
     public function user()

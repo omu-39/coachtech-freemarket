@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('brand')->nullable();
             $table->integer('price');
             $table->string('image');
+            $table->string('shipping_address');
             $table->timestamps();
         });
     }

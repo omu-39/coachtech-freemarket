@@ -62,7 +62,7 @@ class ItemController extends Controller
     }
 
 
-    public function show(string $id)
+    public function show(int $id)
     {
         $item = Item::find($id);
         $categories = $item->categories;

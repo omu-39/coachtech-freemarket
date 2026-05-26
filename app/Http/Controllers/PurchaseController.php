@@ -2,27 +2,36 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PurchaseRequest;
 use Illuminate\Http\Request;
 use App\Models\Item;
+use Illuminate\Support\Facades\Auth;
+
 
 class PurchaseController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index(int $item_id)
-    {
-        $item = Item::find($item_id);
 
-        return view('purchase.show', compact('item'));
+    public function index(int $id)
+    {
+        $item = Item::find($id);
+        $user = Auth::user();
+
+        return view('purchase.index', compact('user', 'item'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+
+    public function store(PurchaseRequest $request)
     {
-        //
+        $item = Item::find($request->item_id);
+
+        if ($item->buyer_id){
+            return back();
+        }
+
+        $item->buyer_id = Auth::id();
+
+        
+
     }
 
     /**
