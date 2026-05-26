@@ -18,7 +18,7 @@
                 @method('put')
                 @csrf
 
-                <x-profile-header user_action="画像を選択する" :user="$user" />
+                <x-profile-image user_action="画像を選択する" :user="$user" />
 
                 <x-form-input label=" ユーザー名" name="name" type="text" value="{{ $user->name }}" />
                 <x-form-input label="郵便番号" name="postal_code" type="text" value="{{ $user->postal_code }}" />
