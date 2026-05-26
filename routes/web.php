@@ -6,7 +6,7 @@ use App\Http\Controllers\ItemController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\ProfileController;
-
+use App\Http\Controllers\PurchaseController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,21 +31,12 @@ Route::middleware('auth')->group(function () {
     Route::post('/item/{item_id}/like/destroy', [LikeController::class, 'destroy'])->name('like.destroy');
     Route::get('/mypage', [ProfileController::class, 'index'])->name('profile.index');
     Route::get('/mypage/profile', [ProfileController::class, 'show'])->name('profile.show');
-    Route::patch('/mypage/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::put('/mypage/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::get('/purchase/address/{item_id}', [PurchaseController::class, 'show'])->name('purchase.show');
+    Route::patch('/purchase/address/{item_id}', [PurchaseController::class, 'update'])->name('purchase.update');
+    Route::get('/purchase/{item_id}', [PurchaseController::class, 'index'])->name('purchase.index');
+    Route::post('/purchase/{item_id}', [PurchaseController::class, 'store'])->name('purchase.store');
+
 });
 
 Route::get('/item/{id}', [ItemController::class, 'show'])->name('item.show');
-
-// 見た目確認用ルート ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
-
-Route::get('/item/show', function () {
-    return view('purchase.show');
-});
-
-Route::get('/purchase/buy', function () {
-    return view('purchase.buy');
-});
-
-Route::get('/purchase/address', function () {
-    return view('purchase.address');
-});

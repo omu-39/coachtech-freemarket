@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('items', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('buyer_id')->nullable()->constrained('users')->nullOnDelete();
             $table->string('name');
             $table->string('description', 255);
             $table->unsignedTinyInteger('status');

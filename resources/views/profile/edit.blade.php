@@ -15,7 +15,7 @@
             <x-page-heading title="プロフィール設定" />
 
             <form action="/mypage/profile" method="post" enctype="multipart/form-data">
-                @method('patch')
+                @method('put')
                 @csrf
 
                 <x-profile-header user_action="画像を選択する" :user="$user" />

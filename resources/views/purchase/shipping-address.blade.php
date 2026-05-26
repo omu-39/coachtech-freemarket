@@ -17,9 +17,9 @@
 
                 <x-page-heading title="住所の変更" />
 
-                <x-form-input label="郵便番号" name="postal_code" />
-                <x-form-input label="住所" name="address" />
-                <x-form-input label="建物名" name="building_name" />
+                <x-form-input label="郵便番号" name="postal_code" value="{{ $user->postal_code }}" />
+                <x-form-input label="住所" name="address" value="{{ $user->address }}" />
+                <x-form-input label="建物名" name="build" value="{{ $user->build }}"/>
 
                 <x-form-submit-button submit="変更する" class="mt-16" />
             </form>

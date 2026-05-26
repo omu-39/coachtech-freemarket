@@ -55,7 +55,7 @@
                     </div>
                 </div>
 
-                <a href=""
+                <a href="{{ route('purchase.index', ['item_id' => $item->id]) }}"
                     class="w-full text-white bg-[#FF5555] py-[8px] rounded-md text-[24px] font-bold block text-center mt-[22px] mb-[50px]">
                     購入手続きへ
                 </a>
@@ -92,12 +92,13 @@
 
                     <h3 class="text-[36px] font-bold mb-[30px] text-[#5F5F5F]">コメント({{ $item->comments->count() }})</h3>
                         <div class="flex items-center mb-[20px]">
-                            @if ($user->profile_image)
+                            @if ($user && $user->profile_image)
                                 <img src="{{ asset('storage/' . $user->profile_image) }}" class="w-[120px] h-[120px] rounded-full object-cover">
+                                <p class="ml-[30px] text-[30px] font-bold">{{ $user->name }}</p>
                             @else
                                 <div class="w-[70px] h-[70px] rounded-full bg-gray-300"></div>
+                                <p class="ml-[30px] text-[30px] font-bold">ゲスト</p>
                             @endif
-                            <p class="ml-[30px] text-[30px] font-bold">{{ $user->name }}</p>
                         </div>
                         <p class="bg-[#E5E5E5] items-center p-[15px] text-[20px] rounded-lg mb-[30px]">{{ optional($item->comments->last())->comment }}</p>
 
