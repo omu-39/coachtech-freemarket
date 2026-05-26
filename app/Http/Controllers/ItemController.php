@@ -7,7 +7,7 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\Item;
 use Illuminate\Support\Facades\Auth;
-
+use App\Models\Order;
 
 class ItemController extends Controller
 {
@@ -31,8 +31,9 @@ class ItemController extends Controller
         }
 
         $items = $items->get();
+        $soldItemIds = Order::pluck('item_id')->toArray();
 
-        return view('item.index', compact('items', 'request'));
+        return view('item.index', compact('items', 'request', 'soldItemIds'));
     }
 
     public function create()
