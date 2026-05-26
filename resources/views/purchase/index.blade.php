@@ -48,12 +48,15 @@
                     <div class="pb-8 border-b border-black">
                         <div class="flex items-center justify-between mb-4">
                             <h3 class="text-[20px] font-bold ml-8">配送先</h3>
-                            <a href="{{ route('profile.edit') }}" class="text-[20px] text-blue-600 hover:underline">変更する</a>
+                            <a href="{{ route('purchase.show', ['item_id' => $item->id]) }}" class="text-[20px] text-blue-600 hover:underline">変更する</a>
                         </div>
                         <div class="text-[20px] leading-relaxed pl-4 ml-20">
                             <p class="font-medium">〒 {{ $user->postal_code }}</p>
                             <p class="mt-1 font-medium">{{ $user->address . $user->build }}</p>
                         </div>
+
+                        <input type="hidden" name="shipping_address" value="{{ $user->postal_code . $user->address . $user->build }}">
+
                     </div>
 
                 </div>
@@ -70,6 +73,9 @@
                             <span class="text-[24px]" id="payment-display">選択してください</span>
                         </div>
                     </div>
+
+                    <input type="hidden" name="item_id" value="{{ $item->id }}">
+                    <input type="hidden" name="user_id" value="{{ $user->id }}">
 
                     <x-form-submit-button submit="購入する" class="mt-2" />
 

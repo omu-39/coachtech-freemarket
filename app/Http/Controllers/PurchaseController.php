@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AddressRequest;
 use App\Http\Requests\PurchaseRequest;
-use Illuminate\Http\Request;
 use App\Models\Item;
 use Illuminate\Support\Facades\Auth;
-
+use App\Models\Order;
 
 class PurchaseController extends Controller
 {
@@ -19,35 +19,40 @@ class PurchaseController extends Controller
         return view('purchase.index', compact('user', 'item'));
     }
 
-
     public function store(PurchaseRequest $request)
     {
-        $item = Item::find($request->item_id);
 
-        if ($item->buyer_id){
-            return back();
-        }
+        $data = $request->validated();
 
-        $item->buyer_id = Auth::id();
+        Order::create([
+            'item_id' => $request->item_id,
+            'user_id' => $request->user_id,
+            'payment_method' => $data['payment_method'],
+            'shipping_address' => $data['shipping_address']
+        ]);
 
-        
-
+        return redirect()->route('item.index');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function show()
     {
-        //
+        $user = Auth::user();
+
+        return view('purchase.shipping-address', compact('user'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function update(AddressRequest $request)
     {
-        //
+        $data = $request->validated();
+        $user = Auth::user();
+
+        $user->postal_code = $data['postal_code'];
+        $user->address = $data['address'];
+        $user->build = $data['build'];
+
+        $user->save();
+
+        return redirect()->route('purchase.index', ['item_id' => $request->item_id]);
     }
 
 }
