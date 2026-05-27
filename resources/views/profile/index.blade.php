@@ -37,7 +37,7 @@
             <div class="grid grid-cols-4 gap-6">
 
                 @foreach ($items as $item)
-                    <x-item-card :item="$item" />
+                    <x-item-card :item="$item" :soldItemIds="$soldItemIds" />
                 @endforeach
 
             </div>

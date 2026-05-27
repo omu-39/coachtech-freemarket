@@ -35,8 +35,9 @@ class ProfileController extends Controller
         }
 
         $items = $items->get();
+        $soldItemIds = Order::pluck('item_id')->toArray();
 
-        return view('profile.index', compact('user', 'items', 'request'));
+        return view('profile.index', compact('user', 'items', 'request', 'soldItemIds'));
     }
 
     public function show()

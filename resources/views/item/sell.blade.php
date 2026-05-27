@@ -33,7 +33,7 @@
                     </div>
                     <label
                         id="item_image_label_show"
-                        for="item_image"
+                        for="image"
                         class="cursor-pointer border-2 border-[#FF5555] text-[#FF5555] px-6 py-2 rounded-xl hover:bg-red-50 text-lg font-medium mt-12 block text-center w-[180px] mx-auto hidden">
                         画像を選択する
                     </label>
