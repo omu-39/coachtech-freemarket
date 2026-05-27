@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Item;
 use App\Http\Requests\ProfileRequest;
+use App\Models\Order;
 
 class ProfileController extends Controller
 {
@@ -19,9 +20,14 @@ class ProfileController extends Controller
         $items = Item::query();
 
         if ($request->page === 'buy') {
-            $items->where('buyer_id', $user->id);
+
+            $itemIds = Order::where('user_id', $user->id)->pluck('item_id')->toArray();
+            $items->whereIn('id', $itemIds);
+
         } else {
+
             $items->where('user_id', $user->id);
+
         }
 
         if ($request->keyword) {

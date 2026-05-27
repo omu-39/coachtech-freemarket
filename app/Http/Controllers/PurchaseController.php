@@ -48,7 +48,7 @@ class PurchaseController extends Controller
 
         $user->postal_code = $data['postal_code'];
         $user->address = $data['address'];
-        $user->build = $data['build'];
+        $user->build = $request->build;
 
         $user->save();
 

@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Override;
 
 class PurchaseRequest extends FormRequest
 {
@@ -24,6 +25,14 @@ class PurchaseRequest extends FormRequest
         return [
             'payment_method' => 'required',
             'shipping_address' => 'required',
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'payment_method.required' => '支払い方法を選択してください',
+            'shipping_address.required' => '配送先を入力してください',
         ];
     }
 }

@@ -42,6 +42,9 @@
                                 <option value="convenience">コンビニ払い</option>
                                 <option value="card">カード払い</option>
                             </select>
+                            @error('payment_method')
+                                <span class="text-red-500 text-[18px] mt-2 block ml-20">{{ $message }}</span>
+                            @enderror
                         </div>
                     </div>
 
@@ -53,6 +56,9 @@
                         <div class="text-[20px] leading-relaxed pl-4 ml-20">
                             <p class="font-medium">〒 {{ $user->postal_code }}</p>
                             <p class="mt-1 font-medium">{{ $user->address . $user->build }}</p>
+                            @error('shipping_address')
+                            <span class="text-red-500 text-[18px] mt-2 block">{{ $message }}</span>
+                            @enderror
                         </div>
 
                         <input type="hidden" name="shipping_address" value="{{ $user->postal_code . $user->address . $user->build }}">
@@ -72,6 +78,7 @@
                             <span class="text-[20px]">支払い方法</span>
                             <span class="text-[24px]" id="payment-display">選択してください</span>
                         </div>
+
                     </div>
 
                     <input type="hidden" name="item_id" value="{{ $item->id }}">
