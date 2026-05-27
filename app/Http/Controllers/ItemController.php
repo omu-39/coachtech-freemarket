@@ -24,6 +24,10 @@ class ItemController extends Controller
         } else {
 
             $items = Item::query();
+
+            if(Auth::check()) {
+                $items->where('user_id', '!=', Auth::id());
+            }
         }
 
         if ($request->keyword) {
