@@ -51,18 +51,15 @@ class ProfileController extends Controller
     public function edit(ProfileRequest $request)
     {
         $user = Auth::user();
+        $data = $request->validated();
 
         if ($request->hasFile('image')) {
             $path = $request->file('image')->store('images', 'public');
 
             $user->profile_image = $path;
         }
-        $user->name = $request->name;
-        $user->postal_code = $request->postal_code;
-        $user->address = $request->address;
-        $user->build = $request->build;
 
-        $user->save();
+        $user->update($data);
 
         return redirect()->route('profile.index');
 
