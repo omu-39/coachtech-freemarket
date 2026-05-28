@@ -20,23 +20,34 @@ use App\Http\Controllers\PurchaseController;
 */
 
 Route::get('/', [ItemController::class, 'index'])->name('item.index');
+Route::get('/item/{id}', [ItemController::class, 'show'])->name('item.show');
+
 Route::post('/login', [LoginController::class, 'login'])->name('login');
 
 Route::middleware('auth')->group(function () {
 
-    Route::get('/sell', [ItemController::class, 'create'])->name('item.create');
-    Route::post('/sell', [ItemController::class, 'store'])->name('item.store');
+    Route::controller(ItemController::class)->group(function () {
+        Route::get('/sell', 'create')->name('item.create');
+        Route::post('/sell', 'store')->name('item.store');
+    });
     Route::post('/item/{item_id}', [CommentController::class, 'store'])->name('comment.store');
-    Route::post('/item/{item_id}/like', [LikeController::class, 'store'])->name('like.store');
-    Route::post('/item/{item_id}/like/destroy', [LikeController::class, 'destroy'])->name('like.destroy');
-    Route::get('/mypage', [ProfileController::class, 'index'])->name('profile.index');
-    Route::get('/mypage/profile', [ProfileController::class, 'show'])->name('profile.show');
-    Route::put('/mypage/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::get('/purchase/address/{item_id}', [PurchaseController::class, 'show'])->name('purchase.show');
-    Route::patch('/purchase/address/{item_id}', [PurchaseController::class, 'update'])->name('purchase.update');
-    Route::get('/purchase/{item_id}', [PurchaseController::class, 'index'])->name('purchase.index');
-    Route::post('/purchase/{item_id}', [PurchaseController::class, 'store'])->name('purchase.store');
+
+    Route::controller(LikeController::class)->prefix('item/{item_id}/like')->group(function () {
+        Route::post('/', 'store')->name('like.store');
+        Route::post('/destroy', 'destroy')->name('like.destroy');
+    });
+
+    Route::controller(ProfileController::class)->group(function () {
+        Route::get('/mypage', 'index')->name('profile.index');
+        Route::get('/mypage/profile', 'show')->name('profile.show');
+        Route::put('/mypage/profile', 'edit')->name('profile.edit');
+    });
+
+    Route::controller(PurchaseController::class)->group(function () {
+        Route::get('/purchase/address/{item_id}', 'show')->name('purchase.show');
+        Route::patch('/purchase/address/{item_id}', 'update')->name('purchase.update');
+        Route::get('/purchase/{item_id}', 'index')->name('purchase.index');
+        Route::post('/purchase/{item_id}', 'store')->name('purchase.store');
+    });
 
 });
-
-Route::get('/item/{id}', [ItemController::class, 'show'])->name('item.show');
