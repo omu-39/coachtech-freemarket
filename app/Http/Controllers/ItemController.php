@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use App\Models\Item;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Order;
+use App\Models\User;
+use App\Models\Comment;
 
 class ItemController extends Controller
 {
@@ -66,12 +68,13 @@ class ItemController extends Controller
         return redirect()->route('item.index');
     }
 
-
-    public function show(int $id)
+    public function show(int $item_id)
     {
-        $item = Item::find($id);
+        $comment = Comment::where('item_id', $item_id)->latest()->first();
+
+        $item = Item::find($item_id);
         $categories = $item->categories;
-        $user = Auth::user();
+        $user = $comment?->user;
 
         return view('item.show', compact('item', 'categories', 'user'));
     }

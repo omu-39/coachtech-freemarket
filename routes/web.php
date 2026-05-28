@@ -20,7 +20,7 @@ use App\Http\Controllers\PurchaseController;
 */
 
 Route::get('/', [ItemController::class, 'index'])->name('item.index');
-Route::get('/item/{id}', [ItemController::class, 'show'])->name('item.show');
+Route::get('/item/{item_id}', [ItemController::class, 'show'])->name('item.show');
 
 Route::post('/login', [LoginController::class, 'login'])->name('login');
 

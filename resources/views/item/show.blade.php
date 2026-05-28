@@ -87,24 +87,19 @@
                     </div>
                 </section>
 
-                <form action="" method="post">
+                <form action="{{ route('comment.store', ['item_id' => $item->id]) }}" method="post">
                     @csrf
                     <h3 class="text-[36px] font-bold mb-[30px] text-[#5F5F5F]">コメント({{ $item->comments->count() }})</h3>
 
                         <div class="flex items-center mb-[20px]">
 
-                            {{-- ユーザーがプロフィール画像を設定しているかのチェック --}}
-                            @php
-                                $imgSrc = $user->profile_image
-                                    ? asset('storage/' . $user->profile_image)
-                                    : '';
-                            @endphp
-                            @if ($imgSrc)
-                                <img src="{{ $imgSrc }}" class="w-[120px] h-[120px] rounded-full object-cover">
+                            @if ($user?->profile_image)
+                                <img src="{{ asset('storage/' . $user->profile_image) }}" class="w-[120px] h-[120px] rounded-full object-cover">
                             @else
                                 <div class="w-[70px] h-[70px] rounded-full bg-gray-300"></div>
                             @endif
-                            <p class="ml-[30px] text-[30px] font-bold">{{ $user->name }}</p>
+                            <p class="ml-[30px] text-[30px] font-bold">{{ $user?->name }}</p>
+
                         </div>
 
                         <p class="bg-[#E5E5E5] items-center p-[15px] text-[20px] rounded-lg mb-[30px]">{{ optional($item->comments->last())->comment }}</p>

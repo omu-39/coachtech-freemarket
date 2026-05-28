@@ -3,7 +3,7 @@
 <!-- 後でパスを指定する -->
 <div class="w-[290px]">
 
-    <a href="{{ route('item.show', ['id' => $item->id]) }}" class="block">
+    <a href="{{ route('item.show', ['item_id' => $item->id]) }}" class="block">
 
         <div class="aspect-square bg-gray-200 rounded-lg overflow-hidden shadow-sm relative">
 
