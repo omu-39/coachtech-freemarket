@@ -29,6 +29,10 @@ class FortifyServiceProvider extends ServiceProvider
             RegisterResponseContract::class,
             RegisterResponse::class
         );
+
+        Fortify::verifyEmailView(function () {
+            return view('auth.verify-email');
+        });
     }
 
     /**
