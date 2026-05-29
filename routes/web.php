@@ -24,7 +24,7 @@ Route::get('/item/{item_id}', [ItemController::class, 'show'])->name('item.show'
 
 Route::post('/login', [LoginController::class, 'login'])->name('login');
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::controller(ItemController::class)->group(function () {
         Route::get('/sell', 'create')->name('item.create');
