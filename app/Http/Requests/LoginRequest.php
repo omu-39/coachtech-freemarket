@@ -17,11 +17,7 @@ class LoginRequest extends FormRequest
         return true;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
-     */
+
     public function rules(): array
     {
         return [
@@ -45,7 +41,7 @@ class LoginRequest extends FormRequest
             $user = User::where('email', $this->email)->first();
 
             if (!$user || !Hash::check($this->password, $user->password)) {
-                $validator->errors()->add('password', 'ログイン情報が登録されていません');
+                $validator->errors()->add('email', 'ログイン情報が登録されていません');
             }
         });
     }

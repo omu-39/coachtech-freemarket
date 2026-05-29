@@ -11,9 +11,6 @@ class UserRegistrationTest extends TestCase
 
     use RefreshDatabase;
 
-    /**
-     * ユーザー登録テスト
-     */
     public function test_user_register_validation_message_name(): void
     {
         $response = $this->post('/register', [
@@ -84,7 +81,7 @@ class UserRegistrationTest extends TestCase
         ]);
     }
 
-    public function test_user_can_register(): void
+    public function test_user_register_success(): void
     {
         $response = $this->post('/register', [
             'name' => 'test',
