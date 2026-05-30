@@ -7,9 +7,9 @@ use App\Models\User;
 use App\Models\Item;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Order>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Like>
  */
-class OrderFactory extends Factory
+class LikeFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -21,10 +21,6 @@ class OrderFactory extends Factory
         return [
             'user_id' => User::factory(),
             'item_id' => Item::factory(),
-            'payment_method' => fake()->randomElement(['convenience', 'card']),
-            'postal_code' => fake()->postcode(),
-            'address' => fake()->address(),
-            'building' => fake()->optional()->secondaryAddress(),
         ];
     }
 }
