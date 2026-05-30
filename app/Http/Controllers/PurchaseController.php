@@ -28,7 +28,9 @@ class PurchaseController extends Controller
             'item_id' => $request->item_id,
             'user_id' => $request->user_id,
             'payment_method' => $data['payment_method'],
-            'shipping_address' => $data['shipping_address']
+            'postal_code' => $data['postal_code'],
+            'address' => $data['address'],
+            'building' => $data['building'],
         ]);
 
         return redirect()->route('item.index');

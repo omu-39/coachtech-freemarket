@@ -61,7 +61,9 @@
                             @enderror
                         </div>
 
-                        <input type="hidden" name="shipping_address" value="{{ $user->postal_code . $user->address . $user->build }}">
+                        <input type="hidden" name="postal_code" value="{{ $user->postal_code }}">
+                        <input type="hidden" name="address" value="{{ $user->address }}">
+                        <input type="hidden" name="building" value="{{ $user->build }}">
 
                     </div>
 
