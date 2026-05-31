@@ -24,7 +24,6 @@ class ItemController extends Controller
                 ? auth()->user()->likes()
                 : Item::query()->whereRaw('0 = 1');
         } else {
-
             $items = Item::query();
 
             if(Auth::check()) {

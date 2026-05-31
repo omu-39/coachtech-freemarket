@@ -9,7 +9,9 @@
     <form action="{{ route('item.index') }}" method="GET">
 
         <div class="w-[600px] bg-white rounded-sm text-[20px] overflow-hidden">
-            <input type="text" name="keyword" placeholder="なにをお探しですか？" class="w-full placeholder-black py-2 px-8">
+            <input type="text" name="keyword" placeholder="なにをお探しですか？" value = "{{ request('keyword') }}"
+                class="w-full placeholder-black py-2 px-8"
+            >
         </div>
     </form>
 

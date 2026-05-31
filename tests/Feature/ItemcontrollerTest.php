@@ -52,18 +52,10 @@ class ItemControllerTest extends TestCase
     public function test_user_can_get_mylist(): void
     {
         $user = User::factory()->create();
+        $liked = Item::factory()->count(3)->create();
+        $unLiked = Item::factory()->count(3)->create();
 
-        $items = Item::factory()->count(5)->create();
-
-        $likedItems = $items->take(3);
-
-        $likedItems->each(fn($item) =>
-            Like::factory()->create([
-                'user_id' => $user->id,
-                'item_id' => $item->id,
-            ]));
-
-        $notLikeditems = $items->skip(3);
+        $user->likes()->attach($liked->pluck('id')->toArray());
 
         $response = $this->actingAs($user)
         ->get(route('item.index', ['tab' => 'mylist']));
@@ -71,15 +63,14 @@ class ItemControllerTest extends TestCase
         $response->assertStatus(200)
             ->assertViewIs('item.index');
 
-        $response->assertViewHas('items', function ($items) use ($likedItems, $notLikeditems) {
-            return $likedItems->every(
-                fn($item) => $items->contains('id', $item->id)
-            )
-            &&
-            $notLikeditems->every(
-                fn($item) => !$items->contains('id', $item->id)
+        $response->assertViewHas('items', function ($items) use ($liked, $unLiked) {
+            return $liked->every(
+                fn ($item) => $items->contains('id', $item->id)
+            ) && $unLiked->every(
+                fn ($item) => !$items->contains('id', $item->id)
             );
         });
+
     }
 
     public function test_guest_cant_get_mylist(): void
