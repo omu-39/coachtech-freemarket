@@ -77,7 +77,7 @@ class ItemControllerTest extends TestCase
             )
             &&
             $notLikeditems->every(
-                fn($item) => ! $items->contains('id', $item->id)
+                fn($item) => !$items->contains('id', $item->id)
             );
         });
     }
@@ -90,6 +90,28 @@ class ItemControllerTest extends TestCase
             ->assertViewIs('item.index');
         $response->assertViewHas('items', function ($items) {
             return $items->isEmpty();
+        });
+    }
+
+    public function test_user_can_search_item(): void
+    {
+        $user = User::factory()->create();
+
+        $hitItem = Item::factory()->create([
+            'name' => 'test item',
+        ]);
+
+        $notHitItem = Item::factory()->create();
+
+        $response = $this->actingAs($user)
+        ->get(route('item.index', ['keyword' => 'test']));
+
+        $response->assertStatus(200)
+            ->assertViewIs('item.index');
+
+        $response->assertViewHas('items', function ($items) use ($hitItem, $notHitItem) {
+            return $items->contains('id', $hitItem->id)
+                && !$items->contains('id', $notHitItem->id);
         });
     }
 
