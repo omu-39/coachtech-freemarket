@@ -80,6 +80,17 @@ class ItemControllerTest extends TestCase
                 fn($item) => ! $items->contains('id', $item->id)
             );
         });
-
     }
+
+    public function test_guest_cant_get_mylist(): void
+    {
+        $response = $this->get(route('item.index', ['tab' => 'mylist']));
+
+        $response->assertStatus(200)
+            ->assertViewIs('item.index');
+        $response->assertViewHas('items', function ($items) {
+            return $items->isEmpty();
+        });
+    }
+
 }
