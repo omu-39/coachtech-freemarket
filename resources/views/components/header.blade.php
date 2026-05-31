@@ -7,6 +7,8 @@
 
     @if(!request()->routeIs('login', 'register'))
     <form action="{{ route('item.index') }}" method="GET">
+        @csrf
+        <input type="hidden" name="tab" value="{{ request('tab') }}">
 
         <div class="w-[600px] bg-white rounded-sm text-[20px] overflow-hidden">
             <input type="text" name="keyword" placeholder="なにをお探しですか？" value = "{{ request('keyword') }}"

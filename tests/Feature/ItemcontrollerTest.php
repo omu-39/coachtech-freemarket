@@ -8,7 +8,7 @@ use Tests\TestCase;
 use App\Models\Order;
 use App\Models\User;
 use App\Models\Item;
-use App\Models\Like;
+use App\Models\Category;
 
 class ItemControllerTest extends TestCase
 {
@@ -104,6 +104,85 @@ class ItemControllerTest extends TestCase
             return $items->contains('id', $hitItem->id)
                 && !$items->contains('id', $notHitItem->id);
         });
+    }
+
+    // 保留
+    public function test_search_keyword_is_preserved_on_mylist_tab(): void
+    {
+        $user = User::factory()->create();
+        $hitItem = Item::factory()->create(['name' => 'test item',]);
+        $notHitItem = Item::factory()->create(['name' => 'cant see item',]);
+
+        $user->likes()->attach([$hitItem->id, $notHitItem->id]);
+
+        $response = $this->actingAs($user)
+            ->get(route('item.index', ['keyword' => 'test']));
+
+        $response->assertStatus(200)
+            ->assertSee('test item')
+            ->assertDontSee('cant see item');
+
+        $nextResponse = $this->actingAs($user)
+        ->get(route('item.index', ['tab' => 'mylist', 'keyword' => 'test']));
+
+        $nextResponse->assertStatus(200)
+            ->assertSee('test item')
+            ->assertDontSee('cant see item');
+
+    }
+
+    public function test_user_can_get_item_show_page(): void
+    {
+
+        $user = User::factory()->create();
+        $item = Item::factory()->create();
+        $user->likes()->attach($item->id);
+        $comment = $item->comments()->create([
+            'user_id' => $user->id,
+            'item_id' => $item->id,
+            'comment' => 'test comment',
+        ]);
+
+        $category = Category::factory()->create();
+        $item->categories()->attach($category->id);
+
+        $likesCount = $item->likes()->count();
+        $commentsCount = $item->comments()->count();
+
+        $response = $this->get(route('item.show', $item->id));
+
+        $response->assertStatus(200)
+            ->assertViewIs('item.show');
+
+        $response->assertSee($item->image)
+            ->assertSee($item->name)
+            ->assertSee($item->brand)
+            ->assertSee((string) number_format(floor($item->price * 1.1)))
+            ->assertSee((string) $likesCount)
+            ->assertSee((string) $commentsCount)
+            ->assertSee($item->description)
+            ->assertSee($item->categories()->first()->name)
+            ->assertSee($item->status)
+            ->assertSee('storage/' . $user->profile_image)
+            ->assertSee($comment->user->name)
+            ->assertSee($comment->comment);
+    }
+
+    public function test_item_shows_categories(): void
+    {
+        $item = Item::factory()->create();
+        $categories = Category::factory()->count(3)->create();
+
+        $item->categories()->attach($categories->pluck('id')->toArray());
+
+        $response = $this->get(route('item.show', $item->id));
+
+        $response->assertStatus(200)
+            ->assertViewIs('item.show');
+
+        foreach ($categories as $category) {
+            $response->assertSee($category->name);
+        }
     }
 
 }
