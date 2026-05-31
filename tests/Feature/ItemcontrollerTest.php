@@ -185,4 +185,31 @@ class ItemControllerTest extends TestCase
         }
     }
 
+    public function test_like_item(): void
+    {
+        $user = User::factory()->create();
+        $item = Item::factory()->create();
+        $beforeCount = $item->likes()->count();
+
+        $this->actingAs($user)
+            ->post(route('like.store', $item->id));
+
+        $this->assertDatabaseHas('likes', [
+            'user_id' => $user->id,
+            'item_id' => $item->id,
+        ]);
+
+        $afterCount = $item->fresh()->likes()->count();
+
+        $this->assertEquals($beforeCount + 1, $afterCount);
+
+        $response = $this->get(route('item.show', $item->id));
+
+        $response->assertStatus(200)
+            ->assertSee((string) $afterCount);
+
+    }
+
+    public function test_like_item_change_color(): void
+    {}
 }
