@@ -34,7 +34,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::controller(LikeController::class)->prefix('item/{item_id}/like')->group(function () {
         Route::post('/', 'store')->name('like.store');
-        Route::post('/destroy', 'destroy')->name('like.destroy');
+        Route::delete('/destroy', 'destroy')->name('like.destroy');
     });
 
     Route::controller(ProfileController::class)->group(function () {

@@ -20,7 +20,7 @@ class CommentController extends Controller
             'comment' => $comment['comment']
         ]);
 
-        return back();
+        return redirect()->back();
     }
 
 }
