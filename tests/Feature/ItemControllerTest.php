@@ -9,6 +9,7 @@ use App\Models\Order;
 use App\Models\User;
 use App\Models\Item;
 use App\Models\Category;
+use Illuminate\Http\UploadedFile;
 
 class ItemControllerTest extends TestCase
 {
@@ -183,6 +184,53 @@ class ItemControllerTest extends TestCase
         foreach ($categories as $category) {
             $response->assertSee($category->name);
         }
+    }
+
+    public function test_user_can_sell_item(): void
+    {
+        $user = User::factory()->create();
+        $sellerItem = Item::factory()->create([
+            'user_id' => $user->id,
+        ]);
+        $categories = Category::factory()->count(2)->create();
+        $sellerItem->categories()->attach($categories->pluck('id')->toArray());
+
+        $response = $this->actingAs($user)
+            ->get(route('item.create'));
+
+        $response->assertStatus(200)
+            ->assertViewIs('item.sell');
+
+        $this->actingAs($user)
+            ->post(route('item.store'), [
+                'name' => $sellerItem->name,
+                'brand' => $sellerItem->brand,
+                'price' => $sellerItem->price,
+                'description' => $sellerItem->description,
+                'status' => $sellerItem->status,
+                'categories' => $categories->pluck('id')->toArray(),
+                'image' => $sellerItem->image,
+            ]);
+
+        $this->assertDatabaseHas('items', [
+            'name' => $sellerItem->name,
+            'brand' => $sellerItem->brand,
+            'price' => $sellerItem->price,
+            'description' => $sellerItem->description,
+            'status' => $sellerItem->status,
+            'user_id' => $user->id,
+            'image' => $sellerItem->image
+        ]);
+
+        $this->assertDatabaseHas('category_item', [
+            'item_id' => $sellerItem->id,
+            'category_id' => $categories[0]->id,
+        ]);
+
+        $this->assertDatabaseHas('category_item', [
+            'item_id' => $sellerItem->id,
+            'category_id' => $categories[1]->id,
+        ]);
     }
 
 }

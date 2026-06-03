@@ -8,14 +8,11 @@ use Illuminate\Http\Request;
 use App\Models\Item;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Order;
-use App\Models\User;
 use App\Models\Comment;
 
 class ItemController extends Controller
 {
-    /**
-     * 未ログイン時にmylistへアクセスされた場合は空コレクションを返す
-     */
+
     public function index(Request $request)
     {
         if ($request->tab === 'mylist') {
