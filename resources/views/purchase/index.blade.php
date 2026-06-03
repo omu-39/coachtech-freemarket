@@ -55,13 +55,15 @@
                         </div>
                         <div class="text-[20px] leading-relaxed pl-4 ml-20">
                             <p class="font-medium">〒 {{ $user->postal_code }}</p>
-                            <p class="mt-1 font-medium">{{ $user->address . $user->build }}</p>
+                            <p class="mt-1 font-medium">{{ $user->address . $user->building }}</p>
                             @error('shipping_address')
                             <span class="text-red-500 text-[18px] mt-2 block">{{ $message }}</span>
                             @enderror
                         </div>
 
-                        <input type="hidden" name="shipping_address" value="{{ $user->postal_code . $user->address . $user->build }}">
+                        <input type="hidden" name="postal_code" value="{{ $user->postal_code }}">
+                        <input type="hidden" name="address" value="{{ $user->address }}">
+                        <input type="hidden" name="building" value="{{ $user->building }}">
 
                     </div>
 

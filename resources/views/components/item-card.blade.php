@@ -1,6 +1,5 @@
 @props(['item', 'soldItemIds'])
 
-<!-- 後でパスを指定する -->
 <div class="w-[290px]">
 
     <a href="{{ route('item.show', ['item_id' => $item->id]) }}" class="block">
@@ -12,8 +11,8 @@
                     : asset('storage/' . $item->image) }}" alt="商品画像" class="w-full h-full object-cover">
 
             @if (in_array($item->id, $soldItemIds))
-                <div class="absolute top-5 -left-10 rotate-[-45deg] bg-red-600 text-white w-[160px] text-center py-2 font-bold text-[20px] shadow-lg">
-                    SOLD
+                <div data-testid="sold-item-{{ $item->id }}" class="absolute top-5 -left-10 rotate-[-45deg] bg-red-600 text-white w-[160px] text-center py-2 font-bold text-[20px] shadow-lg">
+                    Sold
                 </div>
             @endif
         </div>

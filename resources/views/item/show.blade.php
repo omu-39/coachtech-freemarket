@@ -24,7 +24,7 @@
                 <p class="text-[18px] mb-[28px]">{{ $item->brand }}</p>
                 <p class="text-[25px]">
                     ￥
-                    <span class="mr-[8px] text-[45px]">{{ floor($item->price * 1.1) }}</span>
+                    <span class="mr-[8px] text-[45px]">{{ number_format(floor($item->price * 1.1)) }}</span>
                     (税込み)
                 </p>
                 <div class="flex ml-[42px] mt-[28px]">

@@ -30,7 +30,7 @@ class UserFactory extends Factory
             'password' => static::$password ??= Hash::make('password'),
             'postal_code' => fake()->postcode(),
             'address' => fake()->address(),
-            'build' => fake()->secondaryAddress(),
+            'building' => fake()->secondaryAddress(),
             'profile_image' => fake()->imageUrl(640, 480, 'people'),
         ];
     }

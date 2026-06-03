@@ -15,12 +15,12 @@ class UserTableSeeder extends Seeder
     {
         $user = User::insert([
             [
-                'name' => '山田太郎',
-                'email' => 'yamada@example.com',
+                'name' => 'Admin',
+                'email' => 'admin@example.com',
                 'password' => bcrypt('password'),
                 'postal_code' => '100-0000',
                 'address' => '東京都千代田区1-1',
-                'build' => '山田ビル',
+                'building' => '山田ビル',
                 'profile_image' => 'https://example.com/profile.jpg',
             ],
         ]);

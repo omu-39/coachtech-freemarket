@@ -19,7 +19,7 @@
 
                 <x-form-input label="郵便番号" name="postal_code" value="{{ $user->postal_code }}" />
                 <x-form-input label="住所" name="address" value="{{ $user->address }}" />
-                <x-form-input label="建物名" name="build" value="{{ $user->build }}"/>
+                <x-form-input label="建物名" name="building" value="{{ $user->build }}"/>
 
                 <x-form-submit-button submit="変更する" class="mt-16" />
             </form>
