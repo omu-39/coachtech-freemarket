@@ -60,6 +60,13 @@ services:
             - sail
         depends_on:
             - mysql
+    mailhog:
+        image: mailhog/mailhog:latest
+        ports:
+        - "8025:8025"
+        - "1025:1025"
+        networks:
+            - sail
 
 networks:
     sail:

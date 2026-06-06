@@ -20,6 +20,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/sell', 'create')->name('item.create');
         Route::post('/sell', 'store')->name('item.store');
     });
+    
     Route::post('/item/{item_id}', [CommentController::class, 'store'])->name('comment.store');
 
     Route::controller(LikeController::class)->prefix('item/{item_id}/like')->group(function () {
