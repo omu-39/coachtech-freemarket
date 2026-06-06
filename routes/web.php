@@ -40,4 +40,5 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::post('/purchase/{item_id}', 'store')->name('purchase.store');
     });
 
+    Route::get('purchase/success/{item_id}', [PurchaseController::class, 'success'])->name('purchase.success');
 });

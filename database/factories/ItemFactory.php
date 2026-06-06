@@ -23,7 +23,7 @@ class ItemFactory extends Factory
             'description' => fake()->realText(255),
             'status' => fake()->numberBetween(0, 3),
             'brand' => fake()->word(),
-            'price' => fake()->randomNumber(),
+            'price' => 1000,
             'image' => fake()->imageUrl(),
         ];
     }

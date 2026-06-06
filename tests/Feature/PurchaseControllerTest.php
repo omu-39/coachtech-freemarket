@@ -32,7 +32,8 @@ class PurchaseControllerTest extends TestCase
             'building' => 'test building',
         ]);
 
-        $response->assertStatus(302)
+        $this->actingAs($user)->get(route('purchase.success', $item->id))
+            ->assertStatus(302)
             ->assertRedirect(route('item.index'));
 
         $this->assertDatabaseHas('orders', [
@@ -98,6 +99,10 @@ class PurchaseControllerTest extends TestCase
             'address' => 'test address',
             'building' => 'test building',
         ]);
+
+        $this->actingAs($user)->get(route('purchase.success', $item->id))
+            ->assertStatus(302)
+            ->assertRedirect(route('item.index'));
 
         $this->assertDatabaseHas('orders', [
             'user_id' => $user->id,
@@ -167,6 +172,10 @@ class PurchaseControllerTest extends TestCase
                 'address' => $updateShippingAddress['address'],
                 'building' => $updateShippingAddress['building'],
             ]);
+
+        $this->actingAs($user)->get(route('purchase.success', $item->id))
+            ->assertStatus(302)
+            ->assertRedirect(route('item.index'));
 
         $this->assertDatabaseHas('orders', [
             'user_id' => $user->id,

@@ -21,7 +21,7 @@ class OrderFactory extends Factory
         return [
             'user_id' => User::factory(),
             'item_id' => Item::factory(),
-            'payment_method' => fake()->randomElement(['convenience', 'card']),
+            'payment_method' => fake()->randomElement(['card']),
             'postal_code' => fake()->postcode(),
             'address' => fake()->address(),
             'building' => fake()->optional()->secondaryAddress(),

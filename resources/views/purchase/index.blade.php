@@ -39,7 +39,7 @@
                                 name ="payment_method"
                                 class="w-full h-[30px] border border-gray-500 rounded px-1 text-[16px] bg-white focus:outline-none ml-20">
                                 <option value="">選択してください</option>
-                                <option value="convenience">コンビニ払い</option>
+                                <option value="konbini">コンビニ払い</option>
                                 <option value="card">カード払い</option>
                             </select>
                             @error('payment_method')
@@ -82,9 +82,6 @@
                         </div>
 
                     </div>
-
-                    <input type="hidden" name="item_id" value="{{ $item->id }}">
-                    <input type="hidden" name="user_id" value="{{ $user->id }}">
 
                     <x-form-submit-button submit="購入する" class="mt-2" />
 
