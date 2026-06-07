@@ -31,7 +31,7 @@ class UserFactory extends Factory
             'postal_code' => fake()->numerify('###-####'),
             'address' => fake()->address(),
             'building' => fake()->secondaryAddress(),
-            'profile_image' => fake()->imageUrl(640, 480, 'people'),
+            'image' => fake()->imageUrl(640, 480, 'people'),
         ];
     }
 

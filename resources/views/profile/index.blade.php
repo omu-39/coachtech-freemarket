@@ -12,8 +12,8 @@
     <x-Header />
     <main>
         <div class="w-[900px] m-auto my-[50px] flex items-center justify-between">
-            @if ($user->profile_image)
-                <img src="{{ asset('storage/' . $user->profile_image) }}" class="w-[120px] h-[120px] rounded-full object-cover">
+            @if ($user->image)
+                <img src="{{ asset('storage/' . $user->image) }}" class="w-[120px] h-[120px] rounded-full object-cover">
             @else
                 <div class="w-[120px] h-[120px] rounded-full bg-gray-300"></div>
             @endif

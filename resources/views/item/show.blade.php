@@ -93,8 +93,8 @@
 
                         <div class="flex items-center mb-[20px]">
 
-                            @if ($user?->profile_image)
-                                <img src="{{ asset('storage/' . $user->profile_image) }}" class="w-[120px] h-[120px] rounded-full object-cover">
+                            @if ($user?->image)
+                                <img src="{{ asset('storage/' . $user->image) }}" class="w-[120px] h-[120px] rounded-full object-cover">
                             @else
                                 <div class="w-[70px] h-[70px] rounded-full bg-gray-300"></div>
                             @endif

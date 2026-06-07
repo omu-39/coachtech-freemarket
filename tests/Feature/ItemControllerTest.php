@@ -164,7 +164,7 @@ class ItemControllerTest extends TestCase
             ->assertSee($item->description)
             ->assertSee($item->categories()->first()->name)
             ->assertSee($item->status)
-            ->assertSee('storage/' . $user->profile_image)
+            ->assertSee('storage/' . $user->image)
             ->assertSee($comment->user->name)
             ->assertSee($comment->comment);
     }
