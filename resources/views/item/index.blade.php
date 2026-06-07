@@ -10,7 +10,7 @@
 <body>
     <x-Header />
     <main>
-        <nav class="pl-[300px] pb-2 flex space-x-8 border-b-2 border-[#5F5F5F] mt-11">
+        <nav class="pl-[200px] pb-2 flex space-x-8 border-b-2 border-[#5F5F5F] mt-11">
             @if ($request->tab === 'mylist')
                 <a href="{{ route('item.index', ['keyword' => request('keyword')]) }}" class="font-bold text-lg">おすすめ</a>
                 <a href="{{ route('item.index', ['tab' => 'mylist', 'keyword' => request('keyword')]) }}" class="text-red-500 font-bold text-lg">マイリスト</a>
@@ -20,7 +20,7 @@
             @endif
         </nav>
 
-        <div class="w-10/12 m-auto py-[30px]">
+        <div class="max-w-[1540px] mx-auto my-[30px] px-[50px]">
             <div class="grid grid-cols-4 gap-6">
 
                 @foreach ($items as $item)

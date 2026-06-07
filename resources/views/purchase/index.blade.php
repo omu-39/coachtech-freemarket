@@ -34,14 +34,22 @@
                     <div class="pb-8 border-b border-black">
                         <h3 class="text-[20px] font-bold mb-6 ml-8">支払い方法</h3>
                         <div class="w-[250px]">
-                            <select
-                                id ="payment-select"
-                                name ="payment_method"
-                                class="w-full h-[30px] border border-gray-500 rounded px-1 text-[16px] bg-white focus:outline-none ml-20">
-                                <option value="">選択してください</option>
-                                <option value="konbini">コンビニ払い</option>
-                                <option value="card">カード払い</option>
-                            </select>
+                            <div class="relative">
+                                <select
+                                    id ="payment-select"
+                                    name ="payment_method"
+                                    class="font-bold text-[#5F5F5F] peer appearance-none cursor-pointer w-full h-[30px] border border-gray-500 rounded px-1 text-[16px] bg-white ml-20 focus:outline-none focus-visible:ring ring-gray-400 focus-visible:outline-none focus:bg-[#636769] focus:text-white">
+                                    <option value="" disabled selected hidden>選択してください</option>
+                                    <option value="konbini">コンビニ払い</option>
+                                    <option value="card">カード払い</option>
+                                </select>
+
+                                <div class="pointer-events-none absolute inset-y-0 right-[-70px] flex items-center peer-focus:hidden">
+                                    <div
+                                        class="border-l-[6px] border-r-[6px] border-t-[12px] border-l-transparent border-r-transparent border-t-[#5F5F5F]">
+                                    </div>
+                                </div>
+                            </div>
                             @error('payment_method')
                                 <span class="text-red-500 text-[18px] mt-2 block ml-20">{{ $message }}</span>
                             @enderror
@@ -56,9 +64,15 @@
                         <div class="text-[20px] leading-relaxed pl-4 ml-20">
                             <p class="font-medium">〒 {{ $user->postal_code }}</p>
                             <p class="mt-1 font-medium">{{ $user->address . $user->building }}</p>
-                            @error('shipping_address')
-                            <span class="text-red-500 text-[18px] mt-2 block">{{ $message }}</span>
-                            @enderror
+                            
+                            @if (
+                                $message = $errors->first('postal_code')
+                                ?: $errors->first('address')
+                            )
+                                <span class="text-red-500 text-[18px] mt-2 block">
+                                    {{ $message }}
+                                </span>
+                            @endif
                         </div>
 
                         <input type="hidden" name="postal_code" value="{{ $user->postal_code }}">
