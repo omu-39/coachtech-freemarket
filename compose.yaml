@@ -60,6 +60,20 @@ services:
             - sail
         depends_on:
             - mysql
+    mailhog:
+        image: mailhog/mailhog:latest
+        ports:
+        - "8025:8025"
+        - "1025:1025"
+        networks:
+            - sail
+    selenium:
+        image: selenium/standalone-chrome
+        extra_hosts:
+            - 'host.docker.internal:host-gateway'
+        shm_size: 2gb
+        networks:
+            - sail
 
 networks:
     sail:
