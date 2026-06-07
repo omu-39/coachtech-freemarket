@@ -21,7 +21,7 @@ class UserTableSeeder extends Seeder
                 'postal_code' => '100-0000',
                 'address' => '東京都千代田区1-1',
                 'building' => '山田ビル',
-                'profile_image' => 'https://example.com/profile.jpg',
+                'image' => 'https://example.com/profile.jpg',
             ],
         ]);
     }

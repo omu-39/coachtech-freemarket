@@ -56,7 +56,7 @@ class ProfileController extends Controller
         if ($request->hasFile('image')) {
             $path = $request->file('image')->store('images', 'public');
 
-            $user->profile_image = $path;
+            $user->image = $path;
         }
 
         $user->update($data);

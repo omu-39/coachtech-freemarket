@@ -71,13 +71,21 @@
                     </div>
 
                     <label for="status" class="text-[24px] font-bold">商品の状態</label>
-                    <select name="status" id="status" value="{{ old('status') }}" class="cursor-pointer block w-full font-bold text-[#5F5F5F] border-2 border-[#5F5F5F] rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-[#B1B1B1] focus:bg-[#636769] focus:bg-b-[#B1B1B1] focus:text-white">
-                        <option value="">選択してください</option>
-                        <option value="0">良好</option>
-                        <option value="1">目立った傷や汚れなし</option>
-                        <option value="2">やや傷や汚れあり</option>
-                        <option value="3">状態が悪い</option>
-                    </select>
+                    <div class="relative">
+                        <select name="status" id="status" class="peer appearance-none cursor-pointer w-full font-bold text-[#5F5F5F] border-2 border-[#5F5F5F] rounded-md py-2 px-3 focus:outline-none focus-visible:ring ring-gray-400 focus-visible:outline-none focus:bg-[#636769] focus:text-white">
+                            <option value="" disabled selected hidden>選択してください</option>
+                            <option value="0" {{ old('status') === '0' ? 'selected' : '' }}>良好</option>
+                            <option value="1" {{ old('status') === '1' ? 'selected' : '' }}>目立った傷や汚れなし</option>
+                            <option value="2" {{ old('status') === '2' ? 'selected' : '' }}>やや傷や汚れあり</option>
+                            <option value="3" {{ old('status') === '3' ? 'selected' : '' }}>状態が悪い</option>
+                        </select>
+
+                        <div class="pointer-events-none absolute inset-y-0 right-3 flex items-center peer-focus:hidden">
+                            <div
+                                class="border-l-[10px] border-r-[10px] border-t-[18px] border-l-transparent border-r-transparent border-t-[#5F5F5F]">
+                            </div>
+                        </div>
+                    </div>
 
                     @error('status')
                     <span class="text-red-500 text-[18px] mt-2 block">

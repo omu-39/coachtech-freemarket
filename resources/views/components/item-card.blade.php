@@ -10,7 +10,7 @@
                     ? $item->image
                     : asset('storage/' . $item->image) }}" alt="商品画像" class="w-full h-full object-cover">
 
-            @if (in_array($item->id, $soldItemIds))
+            @if (in_array($item->id, $soldItemIds) && request('page') !== 'buy')
                 <div data-testid="sold-item-{{ $item->id }}" class="absolute top-5 -left-10 rotate-[-45deg] bg-red-600 text-white w-[160px] text-center py-2 font-bold text-[20px] shadow-lg">
                     Sold
                 </div>

@@ -41,7 +41,7 @@ class ProfileControllerTest extends TestCase
 
         $response->assertStatus(200)
             ->assertViewIs('profile.index')
-            ->assertSee($user->profile_image)
+            ->assertSee($user->image)
             ->assertSee($user->name)
             ->assertSee($listedItems[0]->name)
             ->assertSee($listedItems[1]->name)
@@ -53,7 +53,7 @@ class ProfileControllerTest extends TestCase
 
         $response->assertStatus(200)
             ->assertViewIs('profile.index')
-            ->assertSee($user->profile_image)
+            ->assertSee($user->image)
             ->assertSee($user->name)
             ->assertSee($purchasedItems[0]->name)
             ->assertSee($purchasedItems[1]->name)
@@ -74,7 +74,7 @@ class ProfileControllerTest extends TestCase
         $response = $this->actingAs($user)
             ->put(route('profile.edit'), [
                 'name' => 'Updated Name',
-                'profile_image' => UploadedFile::fake()->image('updated-profile-image.jpg'),
+                'image' => UploadedFile::fake()->image('updated-profile-image.jpg'),
                 'postal_code' => '123-4567',
                 'address' => 'Updated Address',
                 'building' => 'Updated Building',
@@ -85,7 +85,7 @@ class ProfileControllerTest extends TestCase
         $response->assertStatus(200)
             ->assertViewIs('profile.edit')
             ->assertSee('Updated Name')
-            ->assertSee('storage/' . $user->profile_image)
+            ->assertSee('storage/' . $user->image)
             ->assertSee('123-4567')
             ->assertSee('Updated Address')
             ->assertSee('Updated Building');
