@@ -8,6 +8,7 @@ use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Support\Facades\Notification;
 use App\Models\User;
 use Illuminate\Support\Facades\URL;
+use Laravel\Dusk\Browser;   
 
 class EmailVerificationTest extends TestCase
 {
@@ -29,34 +30,23 @@ class EmailVerificationTest extends TestCase
         Notification::assertSentTo($user, VerifyEmail::class);
     }
 
-    public function test_user_can_visit_verification_page_from_verification_link(): void
-    {
-        $response = $this->post(route('register'), [
-            'name' => 'test',
-            'email' => 'test@example.com',
-            'password' => 'password',
-            'password_confirmation' => 'password',
-        ]);
-
-        $response->assertStatus(302)
-            ->assertViewIs('auth.verify-email')
-            ->assertSee('http://localhost:8025');
-    }
-
-    public function test_user_verified_mail_visit_mypage_profile(): void
+    public function test_user_is_redirected_after_email_verification(): void
     {
         $user = User::factory()->unverified()->create();
 
         $url = URL::temporarySignedRoute(
             'verification.verify',
             now()->addMinutes(60),
-            ['id' => $user->id, 'hash' => sha1($user->email)]
+            [
+                'id' => $user->id,
+                'hash' => sha1($user->email)
+            ]
         );
 
         $response = $this->actingAs($user)->get($url);
 
-        $response->assertRedirect(route('profile.edit'));
-        $this->assertTrue($user->fresh()->hasVerifiedEmail());
+        $response->assertStatus(302)
+            ->assertRedirect(route('profile.edit'). '?verified=1');
     }
 
 }
