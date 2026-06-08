@@ -2,17 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\ExhibitionRequest;
 use App\Models\Category;
-use Illuminate\Http\Request;
 use App\Models\Item;
-use Illuminate\Support\Facades\Auth;
 use App\Models\Order;
 use App\Models\Comment;
 
 class ItemController extends Controller
 {
-
     /**
      * 商品一覧画面の表示
      * パラメータによって表示する一覧の切り替え
@@ -30,7 +29,7 @@ class ItemController extends Controller
         } else {
             $items = Item::query();
 
-            if(Auth::check()) {
+            if (Auth::check()) {
                 $items->where('user_id', '!=', Auth::id());
             }
         }

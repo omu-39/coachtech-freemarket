@@ -6,9 +6,17 @@
     </div>
 
     @if(!request()->routeIs('login', 'register'))
-    <form action="{{ route('item.index') }}" method="GET">
+    @php
+        $isMypage = request()->routeIs('profile.index');
+        $searchAction = $isMypage ? route('profile.index') : route('item.index');
+    @endphp
+    <form action="{{ $searchAction }}" method="GET">
         @csrf
-        <input type="hidden" name="tab" value="{{ request('tab') }}">
+        @if ($isMypage)
+            <input type="hidden" name="page" value="{{ request('page') }}">
+        @else
+            <input type="hidden" name="tab" value="{{ request('tab') }}">
+        @endif
 
         <div class="w-[600px] bg-white rounded-sm text-[20px] overflow-hidden">
             <input type="text" name="keyword" placeholder="なにをお探しですか？" value = "{{ request('keyword') }}"

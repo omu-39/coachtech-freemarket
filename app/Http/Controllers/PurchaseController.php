@@ -12,7 +12,6 @@ use Stripe\Checkout\Session;
 
 class PurchaseController extends Controller
 {
-
     /**
      * 商品購入画面の表示
      * 
@@ -74,7 +73,6 @@ class PurchaseController extends Controller
      */
     public function success(int $item_id)
     {
-
         $data = session()->pull('shipping_address');
 
         Order::create([
