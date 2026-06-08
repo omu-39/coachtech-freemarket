@@ -21,6 +21,7 @@ docker run --rm \
 - ./vendor/bin/sail artisan migrate:fresh --seed
 - ./vendor/bin/sail npm install
 - ./vendor/bin/sail npm run build
+- ./vendor/bin/sail artisan storage:link
 - 開発時（Vite）: ./vendor/bin/sail npm run dev
 
 - 以下のキーは取得して設定が必要です：
