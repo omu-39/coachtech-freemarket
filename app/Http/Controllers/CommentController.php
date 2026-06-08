@@ -10,13 +10,21 @@ use Illuminate\Support\Facades\Auth;
 class CommentController extends Controller
 {
 
+    /**
+     * コメントの保存
+     * 
+     * @param \App\Http\Requests\CommentRequest $request
+     * @param \App\Models\Item $item_id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function store(CommentRequest $request, Item $item_id)
     {
         $comment = $request->validated();
+        $item = $item_id;
 
-        $item_id->comments()->create([
+        $item->comments()->create([
             'user_id' => Auth::id(),
-            'item_id' => $item_id,
+            'item_id' => $item->id,
             'comment' => $comment['comment']
         ]);
 

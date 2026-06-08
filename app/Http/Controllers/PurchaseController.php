@@ -13,17 +13,30 @@ use Stripe\Checkout\Session;
 class PurchaseController extends Controller
 {
 
-    public function index(int $id)
+    /**
+     * 商品購入画面の表示
+     * 
+     * @param int $item_id
+     * @return View
+     */
+    public function index(int $item_id)
     {
-        $item = Item::find($id);
+        $item = Item::find($item_id);
         $user = Auth::user();
 
         return view('purchase.index', compact('user', 'item'));
     }
 
+    /**
+     * 商品購入処理
+     * Stripe決済セッション作成
+     * 
+     * @param PurchaseRequest $request 支払方法、配送先情報
+     * @param int $item_id
+     * @return RedirectResponse Stripeの決済ページ
+     */
     public function store(PurchaseRequest $request, int $item_id)
     {
-
         $data = $request->validated();
         $item = Item::find($item_id);
 
@@ -53,6 +66,12 @@ class PurchaseController extends Controller
         return redirect($session->url);
     }
     
+    /**
+     * 注文情報の保存
+     * 
+     * @param int $item_id
+     * @return RedirectResponse 商品一覧画面
+     */
     public function success(int $item_id)
     {
 
@@ -70,6 +89,11 @@ class PurchaseController extends Controller
         return redirect()->route('item.index');
     }
 
+    /**
+     * 配送先変更画面の表示
+     * 
+     * @return View
+     */
     public function show()
     {
         $user = Auth::user();
@@ -77,6 +101,12 @@ class PurchaseController extends Controller
         return view('purchase.shipping-address', compact('user'));
     }
 
+    /**
+     * 配送先変更処理
+     * 
+     * @param AddressRequest $request
+     * @return RedirectResponse 商品購入画面
+     */
     public function update(AddressRequest $request)
     {
         $data = $request->validated();

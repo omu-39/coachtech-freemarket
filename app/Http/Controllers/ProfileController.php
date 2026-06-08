@@ -12,22 +12,22 @@ use App\Models\Order;
 class ProfileController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * マイページの表示
+     * パラメータによって表示する一覧の切り替え
+     * 
+     * @param Request $request
+     * @return View
      */
-    public function index(request $request)
+    public function index(Request $request)
     {
         $user = Auth::user();
         $items = Item::query();
 
         if ($request->page === 'buy') {
-
             $itemIds = Order::where('user_id', $user->id)->pluck('item_id')->toArray();
             $items->whereIn('id', $itemIds);
-
         } else {
-
             $items->where('user_id', $user->id);
-
         }
 
         if ($request->keyword) {
@@ -40,14 +40,24 @@ class ProfileController extends Controller
         return view('profile.index', compact('user', 'items', 'request', 'soldItemIds'));
     }
 
+    /**
+     * プロフィール編集画面の表示
+     * 
+     * @return View
+     */
     public function show()
     {
         $user = Auth::user();
 
         return view('profile.edit', compact('user'));
-
     }
 
+    /**
+     * プロフィール更新処理
+     * 
+     * @param ProfileRequest $request
+     * @return RedirectResponse マイページ
+     */
     public function edit(ProfileRequest $request)
     {
         $user = Auth::user();
