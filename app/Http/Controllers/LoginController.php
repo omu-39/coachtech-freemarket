@@ -17,6 +17,10 @@ class LoginController extends Controller
     {
         Auth::attempt($request->only(['email', 'password']));
 
+        if (!Auth::user()->hasVerifiedEmail()) {
+            return redirect()->route('verification.notice');
+        }
+
         $request->session()->regenerate();
 
         return redirect()->intended(route('item.index'));

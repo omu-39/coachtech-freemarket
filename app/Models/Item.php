@@ -49,7 +49,10 @@ class Item extends Model
         return $this->hasOne(Order::class);
     }
 
-    public function getStatusLabelAttribute()
+    /**
+     * 商品の状態取得
+     */
+    public function getStatusLabelAttribute(): string
     {
         return match ($this->status) {
             2 => '目立った傷や汚れなし',
@@ -59,7 +62,10 @@ class Item extends Model
         };
     }
 
-    public function isLiked()
+    /**
+     * いいねされているかの判定
+     */
+    public function isLiked(): bool
     {
         return $this->likes()
             ->where('user_id', Auth::id())
@@ -67,8 +73,7 @@ class Item extends Model
     }
 
     /**
-     * 画像のURL取得アクセサ
-     * @return string 画像パス
+     * 画像のURL取得
      */
     public function getImageUrlAttribute(): string
     {
@@ -78,8 +83,7 @@ class Item extends Model
     }
 
     /**
-     * 税込み価格計算アクセサ
-     * @return int 税込み価格
+     * 税込み価格計算
      */
     public function getPriceWithTaxAttribute(): int
     {

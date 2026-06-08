@@ -1,19 +1,9 @@
-<!DOCTYPE html>
-<html lang="ja">
+@extends('layouts.app')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>商品購入</title>
-    @vite('resources/css/app.css')
-</head>
+@section('title', '商品購入')
 
-<body>
-    <x-header />
-
-    <main class="max-w-[1200px] mx-auto p-[40px]">
-
+@section('content')
+    <div class="max-w-[1200px] mx-auto p-[40px]">
         <form action="{{ route('purchase.store', ['item_id' => $item->id ]) }}" method="post">
             @csrf
 
@@ -64,7 +54,7 @@
                         <div class="text-[20px] leading-relaxed pl-4 ml-20">
                             <p class="font-medium">〒 {{ $user->postal_code }}</p>
                             <p class="mt-1 font-medium">{{ $user->address . $user->building }}</p>
-                            
+
                             @if (
                                 $message = $errors->first('postal_code')
                                 ?: $errors->first('address')
@@ -78,33 +68,30 @@
                         <input type="hidden" name="postal_code" value="{{ $user->postal_code }}">
                         <input type="hidden" name="address" value="{{ $user->address }}">
                         <input type="hidden" name="building" value="{{ $user->building }}">
-
                     </div>
 
                 </div>
 
                 <div class="flex flex-col gap-y-12">
-
                     <div class="border border-black w-full bg-white">
                         <div class="flex items-center justify-between px-12 py-6 border-b border-black">
                             <span class="text-[20px]">商品代金</span>
-                            <span class="text-[24px]">￥{{floor($item->price * 1.1)}}</span>
+                            <span class="text-[24px]">￥{{ number_format($item->price_with_tax) }}</span>
                         </div>
                         <div class="flex items-center justify-between px-12 py-6">
                             <span class="text-[20px]">支払い方法</span>
                             <span class="text-[24px]" id="payment-display">選択してください</span>
                         </div>
-
                     </div>
 
                     <x-form-submit-button submit="購入する" class="mt-2" />
-
                 </div>
             </div>
         </form>
-    </main>
-</body>
+    </div>
+@endsection
 
+@push('scripts')
 <script>
     const paymentSelect = document.getElementById('payment-select');
     const paymentDisplay = document.getElementById('payment-display');
@@ -114,5 +101,4 @@
         paymentDisplay.textContent = selectedText;
     });
 </script>
-
-</html>
+@endpush

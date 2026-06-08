@@ -1,38 +1,23 @@
-<!DOCTYPE html>
-<html lang="ja">
+@extends('layouts.app')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>会員登録</title>
-    @vite('resources/css/app.css')
-</head>
+@section('title', '会員登録')
 
-<body>
-    <x-Header />
-    <main>
-        <div class="w-[680px] mx-auto">
+@section('content')
+    <div class="w-[680px] mx-auto">
+        <x-page-heading title="会員登録" />
 
-            <x-page-heading title="会員登録" />
+        <form action="/register" method="post" novalidate>
+            @csrf
+            <x-form-input label="ユーザー名" name="name" />
+            <x-form-input label="メールアドレス" name="email" type="email" />
+            <x-form-input label="パスワード" name="password" type="password" />
+            <x-form-input label="確認用パスワード" name="password_confirmation" type="password" />
 
-            <form action="/register" method="post" novalidate>
-                @csrf
-                <x-form-input label="ユーザー名" name="name" />
+            <x-form-submit-button submit="登録する" />
 
-                <x-form-input label="メールアドレス" name="email" type="email" />
-
-                <x-form-input label="パスワード" name="password" type="password" />
-
-                <x-form-input label="確認用パスワード" name="password_confirmation" type="password" />
-
-                <x-form-submit-button submit="登録する" />
-
-                <div class="mt-[20px] text-center">
-                    <a href="/login" class="text-blue-500 hover:underline">ログインはこちら</a>
-                </div>
-            </form>
-        </div>
-    </main>
-</body>
-
-</html>
+            <div class="mt-[20px] text-center">
+                <a href="/login" class="text-blue-500 hover:underline">ログインはこちら</a>
+            </div>
+        </form>
+    </div>
+@endsection
