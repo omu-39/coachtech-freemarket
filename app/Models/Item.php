@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class Item extends Model
 {
@@ -48,7 +49,10 @@ class Item extends Model
         return $this->hasOne(Order::class);
     }
 
-    public function getStatusLabelAttribute()
+    /**
+     * 商品の状態取得
+     */
+    public function getStatusLabelAttribute(): string
     {
         return match ($this->status) {
             2 => '目立った傷や汚れなし',
@@ -58,10 +62,31 @@ class Item extends Model
         };
     }
 
-    public function isLiked()
+    /**
+     * いいねされているかの判定
+     */
+    public function isLiked(): bool
     {
         return $this->likes()
             ->where('user_id', Auth::id())
             ->exists();
+    }
+
+    /**
+     * 画像のURL取得
+     */
+    public function getImageUrlAttribute(): string
+    {
+        return Str::startsWith($this->image, 'http')
+            ? $this->image
+            : asset('storage/' . $this->image);
+    }
+
+    /**
+     * 税込み価格計算
+     */
+    public function getPriceWithTaxAttribute(): int
+    {
+        return (int) floor($this->price * 1.1);
     }
 }

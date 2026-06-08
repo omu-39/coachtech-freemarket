@@ -24,7 +24,7 @@ class PurchaseRequest extends FormRequest
     {
         return [
             'payment_method' => 'required',
-            'postal_code' => 'required',
+            'postal_code' => 'required|regex:/^\d{3}-\d{4}$/',
             'address' => 'required',
             'building' => 'nullable',
         ];
@@ -35,6 +35,7 @@ class PurchaseRequest extends FormRequest
         return [
             'payment_method.required' => '支払い方法を選択してください',
             'postal_code.required' => '配送先を入力してください',
+            'postal_code.regex' => '郵便番号は「123-4567」の形式で入力してください',
             'address.required' => '配送先を入力してください',
         ];
     }

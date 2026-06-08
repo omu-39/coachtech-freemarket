@@ -15,9 +15,15 @@ class LoginController extends Controller
      */
     public function login(LoginRequest $request)
     {
-        Auth::attempt($request->only(['email', 'password']));
+        if (!Auth::attempt($request->only(['email', 'password']))) {
+            return redirect()->back();
+        }
 
         $request->session()->regenerate();
+
+        if (!Auth::user()->hasVerifiedEmail()) {
+            return redirect()->route('verification.notice');
+        }
 
         return redirect()->intended(route('item.index'));
     }

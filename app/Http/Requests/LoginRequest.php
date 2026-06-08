@@ -35,6 +35,9 @@ class LoginRequest extends FormRequest
         ];
     }
 
+    /**
+     * 未登録ユーザーかの判定
+     */
     public function withValidator(Validator $validator)
     {
         $validator->after(function (Validator $validator) {

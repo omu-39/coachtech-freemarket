@@ -1,35 +1,28 @@
-<!DOCTYPE html>
-<html lang="ja">
+@extends('layouts.app')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>プロフィール設定</title>
-    @vite('resources/css/app.css')
-</head>
+@section('title', 'プロフィール設定')
 
-<body>
-    <x-Header />
-    <main>
-        <div class="w-[680px] mx-auto mb-[80px]">
-            <x-page-heading title="プロフィール設定" />
+@section('content')
+    <div class="w-[680px] mx-auto mb-[80px]">
+        <x-page-heading title="プロフィール設定" />
 
-            <form action="/mypage/profile" method="post" enctype="multipart/form-data">
-                @method('put')
-                @csrf
+        <form action="/mypage/profile" method="post" enctype="multipart/form-data">
+            @method('put')
+            @csrf
 
-                <x-profile-header user_action="画像を選択する" :user="$user" />
+            <x-profile-header user_action="画像を選択する" :user="$user" />
 
-                <x-form-input label=" ユーザー名" name="name" type="text" value="{{ $user->name }}" />
-                <x-form-input label="郵便番号" name="postal_code" type="text" value="{{ $user->postal_code }}" />
-                <x-form-input label="住所" name="address" type="text" value="{{ $user->address }}"/>
-                <x-form-input label="建物名" name="building" type="text" value="{{ $user->building }}"/>
+            <x-form-input label=" ユーザー名" name="name" type="text" value="{{ $user->name }}" />
+            <x-form-input label="郵便番号" name="postal_code" type="text" value="{{ $user->postal_code }}" />
+            <x-form-input label="住所" name="address" type="text" value="{{ $user->address }}"/>
+            <x-form-input label="建物名" name="building" type="text" value="{{ $user->building }}"/>
 
-                <x-form-submit-button submit="更新する" />
-            </form>
-        </div>
-    </main>
-</body>
+            <x-form-submit-button submit="更新する" />
+        </form>
+    </div>
+@endsection
+
+@push('scripts')
 <script>
     const input = document.getElementById('image');
     const preview = document.getElementById('preview');
@@ -48,5 +41,4 @@
         }
     });
 </script>
-
-</html>
+@endpush
