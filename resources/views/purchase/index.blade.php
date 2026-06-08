@@ -23,11 +23,11 @@
 
                     <div class="flex gap-x-8 pb-8 border-b border-black">
                         <div class="w-[150px] h-[150px] bg-[#D9D9D9] flex items-center justify-center">
-                            <img src="{{ $item->image }}" alt="">
+                            <img src="{{ $item->image_url }}" alt="商品画像">
                         </div>
                         <div>
                             <h2 class="text-[30px] font-bold mb-2">{{ $item->name }}</h2>
-                            <p class="text-[30px]"><span class="text-[27px]">￥</span>{{ floor($item->price * 1.1)}}</p>
+                            <p class="text-[30px]"><span class="text-[27px]">￥</span>{{ number_format($item->price_with_tax) }}</p>
                         </div>
                     </div>
 

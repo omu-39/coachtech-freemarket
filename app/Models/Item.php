@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class Item extends Model
 {
@@ -63,5 +64,25 @@ class Item extends Model
         return $this->likes()
             ->where('user_id', Auth::id())
             ->exists();
+    }
+
+    /**
+     * 画像のURL取得アクセサ
+     * @return string 画像パス
+     */
+    public function getImageUrlAttribute(): string
+    {
+        return Str::startsWith($this->image, 'http')
+            ? $this->image
+            : asset('storage/' . $this->image);
+    }
+
+    /**
+     * 税込み価格計算アクセサ
+     * @return int 税込み価格
+     */
+    public function getPriceWithTaxAttribute(): int
+    {
+        return (int) floor($this->price * 1.1);
     }
 }

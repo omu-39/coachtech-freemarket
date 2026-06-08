@@ -13,9 +13,7 @@
     <main class="w-full">
         <div class="w-full grid md:grid-cols-2 my-[40px]">
             <div class="w-[690px] aspect-square ml-auto p-[40px]">
-                <img src="{{ Str::startsWith($item->image, 'http')
-                    ? $item->image
-                    : asset('storage/' . $item->image) }}" alt="商品画像"
+                <img src="{{ $item->image_url }}" alt="商品画像"
                     class="w-full h-full object-cover rounded-lg">
             </div>
 
@@ -24,7 +22,7 @@
                 <p class="text-[18px] mb-[28px]">{{ $item->brand }}</p>
                 <p class="text-[25px]">
                     ￥
-                    <span class="mr-[8px] text-[45px]">{{ number_format(floor($item->price * 1.1)) }}</span>
+                    <span class="mr-[8px] text-[45px]">{{ number_format($item->price_with_tax) }}</span>
                     (税込み)
                 </p>
                 <div class="flex ml-[42px] mt-[28px]">
