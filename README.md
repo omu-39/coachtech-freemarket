@@ -12,11 +12,11 @@ docker run --rm \
     laravelsail/php82-composer:latest \
     composer install
 ```
+- cp .env.example .env
 - ./vendor/bin/sail up -d
 
 ## Laravel環境構築
 - sail composer install
-- cp .env.example .env
 - ./vendor/bin/sail artisan key:generate
 - ./vendor/bin/sail artisan migrate:fresh --seed
 - ./vendor/bin/sail npm install
