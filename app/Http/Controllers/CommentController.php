@@ -17,10 +17,10 @@ class CommentController extends Controller
      * @param \App\Models\Item $item_id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(CommentRequest $request, Item $item_id)
+    public function store(CommentRequest $request, int $item_id)
     {
         $comment = $request->validated();
-        $item = $item_id;
+        $item = Item::find($item_id);
 
         $item->comments()->create([
             'user_id' => Auth::id(),

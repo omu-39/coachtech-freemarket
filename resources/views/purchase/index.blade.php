@@ -52,8 +52,8 @@
                             <a href="{{ route('purchase.show', ['item_id' => $item->id]) }}" class="text-[20px] text-blue-600 hover:underline">変更する</a>
                         </div>
                         <div class="text-[20px] leading-relaxed pl-4 ml-20">
-                            <p class="font-medium">〒 {{ $user->postal_code }}</p>
-                            <p class="mt-1 font-medium">{{ $user->address . $user->building }}</p>
+                            <p class="font-medium">〒 {{ session('shipping_address.postal_code', $user->postal_code) }}</p>
+                            <p class="mt-1 font-medium">{{ session('shipping_address.address', $user->address) . session('shipping_address.building', $user->building) }}</p>
 
                             @if (
                                 $message = $errors->first('postal_code')
@@ -65,9 +65,9 @@
                             @endif
                         </div>
 
-                        <input type="hidden" name="postal_code" value="{{ $user->postal_code }}">
-                        <input type="hidden" name="address" value="{{ $user->address }}">
-                        <input type="hidden" name="building" value="{{ $user->building }}">
+                        <input type="hidden" name="postal_code" value="{{ session('shipping_address.postal_code', $user->postal_code) }}">
+                        <input type="hidden" name="address" value="{{ session('shipping_address.address', $user->address) }}">
+                        <input type="hidden" name="building" value="{{ session('shipping_address.building', $user->building) }}">
                     </div>
 
                 </div>

@@ -50,7 +50,7 @@ class PurchaseController extends Controller
                     'product_data' => [
                         'name' => $item->name,
                     ],
-                    'unit_amount' => floor($item->price * 1.1),
+                    'unit_amount' => $item->price_with_tax,
                 ],
                 'quantity' => 1,
             ]],
@@ -60,7 +60,7 @@ class PurchaseController extends Controller
         ]);
 
         session([
-            'purchase' => $data,
+            'shipping_address' => $data,
         ]);
 
         return redirect($session->url);
@@ -75,7 +75,7 @@ class PurchaseController extends Controller
     public function success(int $item_id)
     {
 
-        $data = session()->pull('purchase');
+        $data = session()->pull('shipping_address');
 
         Order::create([
             'user_id' => Auth::id(),
@@ -110,13 +110,14 @@ class PurchaseController extends Controller
     public function update(AddressRequest $request)
     {
         $data = $request->validated();
-        $user = Auth::user();
 
-        $user->postal_code = $data['postal_code'];
-        $user->address = $data['address'];
-        $user->building = $data['building'];
-
-        $user->save();
+        session([
+            'shipping_address' => [
+                'postal_code' => $data['postal_code'],
+                'address' => $data['address'],
+                'building' => $data['building'],
+            ]
+        ]);
 
         return redirect()->route('purchase.index', ['item_id' => $request->item_id]);
     }
